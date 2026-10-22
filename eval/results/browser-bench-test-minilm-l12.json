@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-10-22T08:23:04.560Z",
+  "runtime": "browser",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "hardwareConcurrency": 16,
+  "deviceMemoryGB": 32,
+  "set": "test",
+  "model": "minilm-l12",
+  "provisional": true,
+  "modelLoadMs": 772,
+  "corpus": {
+    "videos": 10,
+    "windows": 3054
+  },
+  "hybrid": {
+    "byType": {
+      "exact": {
+        "n": 12,
+        "hit1": 6,
+        "hit3": 11,
+        "falseRefusals": 0
+      },
+      "paraphrased": {
+        "n": 12,
+        "hit1": 5,
+        "hit3": 7,
+        "falseRefusals": 0
+      },
+      "zh_mixed": {
+        "n": 12,
+        "hit1": 5,
+        "hit3": 8,
+        "falseRefusals": 0
+      },
+      "not_covered": {
+        "n": 8,
+        "correct": 3
+      },
+      "assessment": {
+        "n": 6,
+        "correct": 6
+      }
+    },
+    "answerable": {
+      "n": 36,
+      "hit1": 16,
+      "hit3": 26
+    },
+    "medianLatencyMs": 11.800000000046566,
+    "keywordOnlyQueries": 0
+  },
+  "baseline": {
+    "byType": {
+      "exact": {
+        "n": 12,
+        "hit1": 6,
+        "hit3": 10,
+        "falseRefusals": 0
+      },
+      "paraphrased": {
+        "n": 12,
+        "hit1": 4,
+        "hit3": 7,
+        "falseRefusals": 0
+      },
+      "zh_mixed": {
+        "n": 12,
+        "hit1": 0,
+        "hit3": 0,
+        "falseRefusals": 0
+      },
+      "not_covered": {
+        "n": 8,
+        "correct": 5
+      },
+      "assessment": {
+        "n": 6,
+        "correct": 6
+      }
+    },
+    "answerable": {
+      "n": 36,
+      "hit1": 10,
+      "hit3": 17
+    },
+    "medianLatencyMs": 0.049999999813735485,
+    "keywordOnlyQueries": 50
+  },
+  "targets": [
+    {
+      "target": "paraphrased Hit@3 >= 80%",
+      "value": "7/12",
+      "pass": false
+    },
+    {
+      "target": "paraphrased Hit@3 >= baseline + 20 pts",
+      "value": "58% vs 58%",
+      "pass": false
+    },
+    {
+      "target": "zh_mixed Hit@3 >= 80%",
+      "value": "8/12",
+      "pass": false
+    },
+    {
+      "target": "zh_mixed Hit@3 >= baseline + 20 pts",
+      "value": "67% vs 0%",
+      "pass": true
+    },
+    {
+      "target": "not-found >= 7/8",
+      "value": "3/8",
+      "pass": false
+    },
+    {
+      "target": "refusals 6/6",
+      "value": "6/6",
+      "pass": true
+    },
+    {
+      "target": "median local retrieval < 2 s",
+      "value": "11.8 ms",
+      "pass": true
+    }
+  ]
+}

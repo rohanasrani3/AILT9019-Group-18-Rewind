@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rewind</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <a class="skip" href="#q">Skip to search</a>
+  <header class="top">
+    <h1>Rewind</h1>
+    <p id="course-label" class="course-label">No course selected</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Rewind sections">
+    <button role="tab" id="tab-search" aria-controls="panel-search" aria-selected="true">Search</button>
+    <button role="tab" id="tab-courses" aria-controls="panel-courses" aria-selected="false" tabindex="-1">Courses</button>
+    <button role="tab" id="tab-setup" aria-controls="panel-setup" aria-selected="false" tabindex="-1">Setup</button>
+  </div>
+
+  <main>
+    <section id="panel-search" role="tabpanel" aria-labelledby="tab-search">
+      <div id="banner" class="banner" role="status" hidden></div>
+      <form id="search-form" role="search">
+        <label for="q">Where was this explained? <span class="hint">English, 中文 or mixed</span></label>
+        <div class="search-row">
+          <input id="q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. why quicksort is fast on average" maxlength="300">
+          <button type="submit" id="search-btn">Search</button>
+        </div>
+      </form>
+      <div id="search-status" class="status" aria-live="polite"></div>
+      <ol id="results" class="results" aria-label="Results"></ol>
+      <section id="related" class="related" hidden aria-labelledby="related-h">
+        <h2 id="related-h">Where this topic was explained (no solutions)</h2>
+        <ol id="related-list" class="results"></ol>
+      </section>
+      <p id="coverage-line" class="fine"></p>
+    </section>
+
+    <section id="panel-courses" role="tabpanel" aria-labelledby="tab-courses" hidden>
+      <h2>Your courses</h2>
+      <ul id="course-list" class="course-list"></ul>
+
+      <h2>Try the demo</h2>
+      <p class="fine">An openly licensed demo: ten captioned lectures from MIT OpenCourseWare 6.046J <em>Introduction to Algorithms</em> (Fall 2005), CC BY-NC-SA 4.0. No HKU access or API key needed.</p>
+      <button id="use-demo" class="secondary">Use the demo course</button>
+
+      <h2>Index a Panopto folder</h2>
+      <ol class="fine steps">
+        <li>Open your course's Panopto folder in this browser tab (through Moodle if that is how you normally sign in).</li>
+        <li>Click <strong>Index this course</strong>. Chrome will ask once to let Rewind read Panopto pages.</li>
+      </ol>
+      <p class="fine">Rewind reads only the captions you can already see, stores them on this device, and never downloads audio or video. Ask your lecturer before indexing course material; seeing a recording is not permission to copy its captions.</p>
+      <button id="index-course">Index this course</button>
+      <button id="cancel-index" class="secondary" hidden>Cancel</button>
+      <progress id="index-progress" max="100" value="0" hidden aria-label="Indexing progress"></progress>
+      <div id="index-status" class="status" aria-live="polite"></div>
+      <details id="excluded" hidden>
+        <summary id="excluded-summary">Videos not indexed</summary>
+        <ul id="excluded-list" class="fine"></ul>
+      </details>
+    </section>
+
+    <section id="panel-setup" role="tabpanel" aria-labelledby="tab-setup" hidden>
+      <h2>Local search model</h2>
+      <p class="fine">Paraphrased and Chinese questions need a multilingual embedding model that runs on your device. It is downloaded once (about 120 MB) and then works offline. Without it Rewind still does keyword search.</p>
+      <p id="model-status" class="status" aria-live="polite">Model not loaded.</p>
+      <label for="model-select">Model</label>
+      <select id="model-select"></select>
+      <div class="button-row">
+        <button id="download-model">Download &amp; check model</button>
+        <button id="remove-model" class="secondary">Remove downloaded model</button>
+      </div>
+
+      <h2>Your data</h2>
+      <p class="fine">Captions, search indexes and settings are stored only in this browser. Rewind collects no usage analytics and sends nothing to any server. Opening a video uses the normal Panopto or YouTube page.</p>
+      <p id="storage-line" class="fine"></p>
+      <button id="delete-all" class="danger">Delete all Rewind data</button>
+      <div id="delete-status" class="status" aria-live="polite"></div>
+
+      <h2>What Rewind does not do</h2>
+      <ul class="fine">
+        <li>It does not solve assignment, quiz or exam questions.</li>
+        <li>It does not summarise whole lectures.</li>
+        <li>It does not bypass Panopto access controls or handle passwords.</li>
+        <li>It does not share captions or indexes with anyone.</li>
+      </ul>
+      <p class="fine">LLM query rewriting and Whisper transcription from the proposal are not part of this version.</p>
+    </section>
+  </main>
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

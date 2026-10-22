@@ -1,0 +1,30 @@
+{
+  "name": "rewind",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Find the moment in a recorded lecture where an idea was explained — local, bilingual, caption-based search for Panopto.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "package": "node scripts/build.mjs && node scripts/package.mjs",
+    "demo:build": "node demo/build-demo.mjs",
+    "test": "vitest run test/unit",
+    "test:e2e": "node scripts/build.mjs && playwright test",
+    "eval": "node eval/run-eval.mjs",
+    "eval:tune": "node eval/tune.mjs",
+    "eval:split": "node eval/check-split.mjs",
+    "annotate": "node eval/annotate.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "3.8.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "esbuild": "0.28.2",
+    "fake-indexeddb": "6.2.6",
+    "vitest": "5.0.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

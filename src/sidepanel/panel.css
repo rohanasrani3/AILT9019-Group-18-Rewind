@@ -1,0 +1,92 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1d2330;
+  --muted: #5b6475;
+  --line: #d9dee7;
+  --soft: #f3f5f9;
+  --accent: #1f4e8c;
+  --accent-fg: #ffffff;
+  --ok: #1d6b3a;
+  --warn-bg: #fff6e0;
+  --warn-line: #e3b341;
+  --err-bg: #fdecec;
+  --err-line: #c94a4a;
+  --focus: #2f7de1;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181e;
+    --fg: #e6e9ef;
+    --muted: #a3abba;
+    --line: #2f3542;
+    --soft: #1d2129;
+    --accent: #7fb0ff;
+    --accent-fg: #0d1626;
+    --ok: #6fd391;
+    --warn-bg: #2d2513;
+    --warn-line: #b38a2a;
+    --err-bg: #2e1717;
+    --err-line: #d26a6a;
+    --focus: #8ab8ff;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); }
+body { font: 14px/1.5 system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif; padding: 0 14px 24px; }
+h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+h2 { font-size: 15px; margin: 20px 0 6px; }
+h3 { font-size: 14px; margin: 0 0 2px; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 14px; top: 8px; background: var(--bg); padding: 4px 8px; z-index: 10; }
+
+.top { padding: 12px 0 6px; }
+.course-label { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 10px; }
+.tabs [role="tab"] { background: none; color: var(--muted); border: 0; border-bottom: 3px solid transparent; padding: 8px 10px; font: inherit; cursor: pointer; min-height: 36px; }
+.tabs [role="tab"][aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); font-weight: 600; }
+
+label { display: block; font-weight: 600; margin-bottom: 4px; }
+.hint { font-weight: 400; color: var(--muted); }
+.search-row { display: flex; gap: 6px; }
+input[type="search"], select { flex: 1; min-width: 0; font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); min-height: 36px; }
+select { width: 100%; margin-bottom: 8px; }
+
+button { font: inherit; padding: 7px 12px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-fg); cursor: pointer; min-height: 36px; }
+button.secondary { background: transparent; color: var(--accent); }
+button.danger { background: transparent; color: var(--err-line); border-color: var(--err-line); }
+button[disabled] { opacity: 0.55; cursor: not-allowed; }
+.button-row { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.status { margin: 10px 0; min-height: 1.5em; }
+.fine { color: var(--muted); font-size: 12.5px; }
+.steps { padding-left: 18px; }
+
+.banner { border: 1px solid var(--warn-line); background: var(--warn-bg); padding: 8px 10px; border-radius: 6px; margin-bottom: 10px; font-size: 13px; }
+.banner.error { border-color: var(--err-line); background: var(--err-bg); }
+.notice { border: 1px solid var(--err-line); background: var(--err-bg); padding: 8px 10px; border-radius: 6px; }
+
+.results { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.result { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: var(--soft); }
+.result .meta { margin: 0 0 6px; font-size: 12.5px; color: var(--muted); }
+.result .time { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg); }
+.result .strength { white-space: nowrap; }
+.result .strength.strong { color: var(--ok); }
+.result .excerpt { margin: 0 0 8px; }
+.result .open { font-weight: 600; }
+.related { margin-top: 14px; }
+
+.course-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.course { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.course.active { border-color: var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+.course .name { font-weight: 600; }
+.course .button-row { margin-top: 6px; }
+.course .button-row button { padding: 4px 10px; min-height: 30px; font-size: 13px; }
+
+progress { width: 100%; height: 10px; margin-top: 10px; }
+details { margin-top: 8px; }

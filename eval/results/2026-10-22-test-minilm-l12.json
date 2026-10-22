@@ -1,0 +1,2741 @@
+{
+  "generatedAt": "2026-10-22T08:21:11.744Z",
+  "set": "test",
+  "model": {
+    "key": "minilm-l12",
+    "id": "Xenova/paraphrase-multilingual-MiniLM-L12-v2",
+    "revision": "2c4055b12046f11709e9df2c122e59ffbdc2f900",
+    "dtype": "q8"
+  },
+  "config": {
+    "windowSize": 45,
+    "windowStride": 15,
+    "topK": 50,
+    "rrfK": 20,
+    "kwStrongCoverage": 0.75,
+    "kwMinCoverage": 0.4,
+    "kwMinScore": 0,
+    "dedupeSeconds": 60,
+    "maxSnap": 0,
+    "maxResults": 3,
+    "tauV": 0.4,
+    "delta": 0,
+    "tauStrong": 0.52,
+    "model": "minilm-l12"
+  },
+  "provisional": true,
+  "provisionalReason": "50 of 50 questions are unverified; test set not frozen",
+  "machine": {
+    "cpu": "AMD Ryzen 7 250 w/ Radeon 780M Graphics",
+    "cores": 16,
+    "ramGB": 31,
+    "platform": "win32 10.0.26300",
+    "node": "v24.21.0",
+    "runtime": "Node (onnxruntime-node). Browser latency: open bench.html in the extension."
+  },
+  "corpus": {
+    "videos": 10,
+    "windows": 3054,
+    "captionHours": 12.8,
+    "indexingMs": 59239,
+    "buildMachine": {
+      "cpu": "AMD Ryzen 7 250 w/ Radeon 780M Graphics        ",
+      "cores": 16,
+      "ramGB": 31,
+      "platform": "win32 10.0.26300",
+      "node": "v24.21.0"
+    }
+  },
+  "modelLoadMs": 738,
+  "hybrid": {
+    "byType": {
+      "exact": {
+        "n": 12,
+        "hit1": 6,
+        "hit3": 11,
+        "falseRefusals": 0
+      },
+      "paraphrased": {
+        "n": 12,
+        "hit1": 5,
+        "hit3": 7,
+        "falseRefusals": 0
+      },
+      "zh_mixed": {
+        "n": 12,
+        "hit1": 5,
+        "hit3": 8,
+        "falseRefusals": 0
+      },
+      "not_covered": {
+        "n": 8,
+        "correct": 3
+      },
+      "assessment": {
+        "n": 6,
+        "correct": 6
+      }
+    },
+    "answerable": {
+      "n": 36,
+      "hit1": 16,
+      "hit3": 26
+    },
+    "medianLatencyMs": 4.481899999999939,
+    "keywordOnlyQueries": 0
+  },
+  "baseline": {
+    "byType": {
+      "exact": {
+        "n": 12,
+        "hit1": 6,
+        "hit3": 10,
+        "falseRefusals": 0
+      },
+      "paraphrased": {
+        "n": 12,
+        "hit1": 4,
+        "hit3": 7,
+        "falseRefusals": 0
+      },
+      "zh_mixed": {
+        "n": 12,
+        "hit1": 0,
+        "hit3": 0,
+        "falseRefusals": 0
+      },
+      "not_covered": {
+        "n": 8,
+        "correct": 5
+      },
+      "assessment": {
+        "n": 6,
+        "correct": 6
+      }
+    },
+    "answerable": {
+      "n": 36,
+      "hit1": 10,
+      "hit3": 17
+    },
+    "medianLatencyMs": 0.12239999999997053,
+    "keywordOnlyQueries": 50
+  },
+  "targets": [
+    {
+      "target": "paraphrased Hit@3 >= 80%",
+      "value": "7/12",
+      "pass": false
+    },
+    {
+      "target": "paraphrased Hit@3 >= baseline + 20 pts",
+      "value": "58% vs 58%",
+      "pass": false
+    },
+    {
+      "target": "zh_mixed Hit@3 >= 80%",
+      "value": "8/12",
+      "pass": false
+    },
+    {
+      "target": "zh_mixed Hit@3 >= baseline + 20 pts",
+      "value": "67% vs 0%",
+      "pass": true
+    },
+    {
+      "target": "not-found >= 7/8",
+      "value": "3/8",
+      "pass": false
+    },
+    {
+      "target": "refusals 6/6",
+      "value": "6/6",
+      "pass": true
+    },
+    {
+      "target": "median local retrieval < 2 s",
+      "value": "4.5 ms",
+      "pass": true
+    }
+  ],
+  "records": {
+    "hybrid": [
+      {
+        "id": "T-EX-01",
+        "type": "exact",
+        "lang": "en",
+        "query": "master theorem",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 7.25630000000001,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 2,
+            "time": "56:45",
+            "start": 3405,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "45:15",
+            "start": 2715,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "51:16",
+            "start": 3076,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-02",
+        "type": "exact",
+        "lang": "en",
+        "query": "insertion sort",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.446100000000001,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "23:19",
+            "start": 1399,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 1,
+            "time": "36:29",
+            "start": 2189,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 1,
+            "time": "1:03:02",
+            "start": 3782,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-03",
+        "type": "exact",
+        "lang": "en",
+        "query": "substitution method",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.796199999999999,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "1:11:57",
+            "start": 4317,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "1:12:03",
+            "start": 4323,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "36:01",
+            "start": 2161,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-EX-04",
+        "type": "exact",
+        "lang": "en",
+        "query": "Strassen's algorithm",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.711300000000051,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "42:30",
+            "start": 2550,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "49:46",
+            "start": 2986,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "54:00",
+            "start": 3240,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-05",
+        "type": "exact",
+        "lang": "en",
+        "query": "randomized quicksort",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.519700000000057,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "16:16",
+            "start": 976,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "46:30",
+            "start": 2790,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "1:19:01",
+            "start": 4741,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-06",
+        "type": "exact",
+        "lang": "en",
+        "query": "decision tree model",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.4570999999999685,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "6:45",
+            "start": 405,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "14:00",
+            "start": 840,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "11:58",
+            "start": 718,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-07",
+        "type": "exact",
+        "lang": "en",
+        "query": "radix sort",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.158799999999928,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "49:29",
+            "start": 2969,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "47:13",
+            "start": 2833,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "3:57",
+            "start": 237,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-08",
+        "type": "exact",
+        "lang": "en",
+        "query": "universal hashing",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.046900000000051,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 8,
+            "time": "54:15",
+            "start": 3255,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "53:00",
+            "start": 3180,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "5:48",
+            "start": 348,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-09",
+        "type": "exact",
+        "lang": "en",
+        "query": "red-black tree properties",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.297400000000039,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 10,
+            "time": "6:02",
+            "start": 362,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "34:45",
+            "start": 2085,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "17:34",
+            "start": 1054,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-10",
+        "type": "exact",
+        "lang": "en",
+        "query": "open addressing",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 3.7250000000000227,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 7,
+            "time": "51:00",
+            "start": 3060,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "1:06:34",
+            "start": 3994,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "53:44",
+            "start": 3224,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-11",
+        "type": "exact",
+        "lang": "en",
+        "query": "worst-case linear-time order statistics",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.036600000000021,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 6,
+            "time": "43:45",
+            "start": 2625,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "3:58",
+            "start": 238,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "45:00",
+            "start": 2700,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-12",
+        "type": "exact",
+        "lang": "en",
+        "query": "big omega notation",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 13.749500000000012,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 2,
+            "time": "13:29",
+            "start": 809,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "10:01",
+            "start": 601,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "11:29",
+            "start": 689,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-01",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "shortcut for divide-and-conquer recurrences",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.425399999999968,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "2:45",
+            "start": 165,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "8:14",
+            "start": 494,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "6:29",
+            "start": 389,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-02",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "why quicksort is fast on average",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.537500000000023,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "2:43",
+            "start": 163,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "46:46",
+            "start": 2806,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "1:19:01",
+            "start": 4741,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-03",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "why can't you sort faster than n log n by comparing elements",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.706999999999994,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "8:02",
+            "start": 482,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 1,
+            "time": "1:19:31",
+            "start": 4771,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "12:28",
+            "start": 748,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-04",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "sorting integers in linear time by counting how often each value appears",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 6.818300000000022,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "1:13:45",
+            "start": 4425,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "31:59",
+            "start": 1919,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "44:29",
+            "start": 2669,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-05",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "keeping a linked list in a slot when two keys land in the same place",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 7.054499999999962,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 7,
+            "time": "14:27",
+            "start": 867,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "17:46",
+            "start": 1066,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 7,
+            "time": "21:18",
+            "start": 1278,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-06",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "choosing the hash function at random so an adversary cannot pick bad keys",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 6.1784000000000106,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 8,
+            "time": "4:15",
+            "start": 255,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "0:34",
+            "start": 34,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "9:45",
+            "start": 585,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-07",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "computing x to the power n with fewer multiplications",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.144699999999943,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "13:44",
+            "start": 824,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "17:02",
+            "start": 1022,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "43:44",
+            "start": 2624,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-08",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "laying out a complete binary tree on a chip using little area",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 6.0680999999999585,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "55:58",
+            "start": 3358,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "58:37",
+            "start": 3517,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "1:45",
+            "start": 105,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-09",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "finding the k-th smallest element quickly with a random pivot",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.526100000000042,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 6,
+            "time": "11:29",
+            "start": 689,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "53:15",
+            "start": 3195,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "53:35",
+            "start": 3215,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-10",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "restructuring a search tree locally without breaking the ordering",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.542599999999993,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "2:13",
+            "start": 133,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "32:15",
+            "start": 1935,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "18:14",
+            "start": 1094,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-11",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "drawing out the cost at every level of the recursion and adding it up",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.351400000000012,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "37:02",
+            "start": 2222,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "1:02:01",
+            "start": 3721,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "8:44",
+            "start": 524,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-12",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "why inserting keys into a search tree in random order is like quicksort",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 15.076499999999896,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "18:45",
+            "start": 1125,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "2:13",
+            "start": 133,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "46:46",
+            "start": 2806,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-01",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "主定理怎么用",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.383400000000165,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 2,
+            "time": "26:47",
+            "start": 1607,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "47:47",
+            "start": 2867,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "18:00",
+            "start": 1080,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-02",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "快速排序的期望运行时间",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.328399999999874,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "1:00:46",
+            "start": 3646,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "25:31",
+            "start": 1531,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 1,
+            "time": "37:47",
+            "start": 2267,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-03",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "比较排序的下界是多少",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.082699999999932,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "20:00",
+            "start": 1200,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "16:47",
+            "start": 1007,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "1:18:28",
+            "start": 4708,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-04",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "计数排序是怎么工作的",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 3.8045999999999367,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "34:07",
+            "start": 2047,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "1:04:15",
+            "start": 3855,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "57:00",
+            "start": 3420,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-05",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "红黑树的旋转操作",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.041600000000017,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 10,
+            "time": "36:15",
+            "start": 2175,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "31:01",
+            "start": 1861,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "1:19:32",
+            "start": 4772,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-06",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "哈希冲突用链表解决",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 3.9360999999998967,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 8,
+            "time": "53:31",
+            "start": 3211,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "49:44",
+            "start": 2984,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "14:27",
+            "start": 867,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-07",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "如何在线性时间内找到中位数",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.014799999999923,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "59:15",
+            "start": 3555,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "4:58",
+            "start": 298,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 5,
+            "time": "1:12:56",
+            "start": 4376,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-08",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "随机二叉搜索树的期望高度",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.331300000000056,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 10,
+            "time": "4:02",
+            "start": 242,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "0:58",
+            "start": 58,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "1:00:17",
+            "start": 3617,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-09",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "master theorem 的三种情况",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.139300000000048,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "45:15",
+            "start": 2715,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "56:45",
+            "start": 3405,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "51:16",
+            "start": 3076,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-10",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "quicksort 的 partition 怎么做",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.50669999999991,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "4:44",
+            "start": 284,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "16:46",
+            "start": 1006,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "12:25",
+            "start": 745,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-11",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "universal hashing 是什么意思",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 3.963700000000017,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 8,
+            "time": "53:00",
+            "start": 3180,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "54:15",
+            "start": 3255,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "5:48",
+            "start": 348,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-ZH-12",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "Strassen 算法为什么只需要七次乘法",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.220600000000104,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "42:44",
+            "start": 2564,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "54:00",
+            "start": 3240,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "48:25",
+            "start": 2905,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-NF-01",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "Dijkstra's shortest path algorithm",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.837800000000016,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "18:29",
+            "start": 1109,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "29:58",
+            "start": 1798,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 10,
+            "time": "8:59",
+            "start": 539,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-02",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "dynamic programming for longest common subsequence",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 5.748900000000049,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 1,
+            "time": "1:07:45",
+            "start": 4065,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "3:44",
+            "start": 224,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 4,
+            "time": "11:30",
+            "start": 690,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-03",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "how photosynthesis works in plants",
+        "status": "not_found",
+        "keywordOnly": false,
+        "latencyMs": 5.265699999999924,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-04",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "causes of the French Revolution",
+        "status": "not_found",
+        "keywordOnly": false,
+        "latencyMs": 5.104100000000017,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-05",
+        "type": "not_covered",
+        "lang": "zh",
+        "query": "如何训练神经网络",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 3.900100000000066,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 1,
+            "time": "13:16",
+            "start": 796,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 1,
+            "time": "11:28",
+            "start": 688,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-06",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "greedy algorithm for minimum spanning trees",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 4.343699999999899,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 10,
+            "time": "31:47",
+            "start": 1907,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "14:29",
+            "start": 869,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "13:15",
+            "start": 795,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-07",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "TCP congestion control",
+        "status": "not_found",
+        "keywordOnly": false,
+        "latencyMs": 4.107400000000098,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-08",
+        "type": "not_covered",
+        "lang": "zh",
+        "query": "供求关系如何决定价格",
+        "status": "results",
+        "keywordOnly": false,
+        "latencyMs": 3.9384000000000015,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 1,
+            "time": "24:58",
+            "start": 1498,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 4,
+            "time": "37:14",
+            "start": 2234,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 2,
+            "time": "1:09:30",
+            "start": 4170,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-AS-01",
+        "type": "assessment",
+        "lang": "en",
+        "query": "solve question 2 of assignment 1",
+        "status": "refused",
+        "keywordOnly": false,
+        "latencyMs": 0.46719999999982065,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-02",
+        "type": "assessment",
+        "lang": "en",
+        "query": "give me the answer to problem set 3 problem 4",
+        "status": "refused",
+        "keywordOnly": false,
+        "latencyMs": 0.010199999999940701,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-03",
+        "type": "assessment",
+        "lang": "zh",
+        "query": "帮我做作业第二题",
+        "status": "refused",
+        "keywordOnly": false,
+        "latencyMs": 0.4906999999998334,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-04",
+        "type": "assessment",
+        "lang": "zh",
+        "query": "作业1第3题的答案是什么",
+        "status": "refused",
+        "keywordOnly": false,
+        "latencyMs": 3.5860000000000127,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-05",
+        "type": "assessment",
+        "lang": "en",
+        "query": "write the code for my homework on red-black trees",
+        "status": "refused",
+        "keywordOnly": false,
+        "latencyMs": 4.297800000000052,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-06",
+        "type": "assessment",
+        "lang": "mixed",
+        "query": "quiz 1 question 5 master theorem 的答案",
+        "status": "refused",
+        "keywordOnly": false,
+        "latencyMs": 4.9806999999998425,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      }
+    ],
+    "baseline": [
+      {
+        "id": "T-EX-01",
+        "type": "exact",
+        "lang": "en",
+        "query": "master theorem",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.2337999999999738,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "44:57",
+            "start": 2697,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "30:33",
+            "start": 1833,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "56:45",
+            "start": 3405,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-02",
+        "type": "exact",
+        "lang": "en",
+        "query": "insertion sort",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.10979999999995016,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "22:59",
+            "start": 1379,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 1,
+            "time": "1:18:58",
+            "start": 4738,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 1,
+            "time": "56:46",
+            "start": 3406,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-EX-03",
+        "type": "exact",
+        "lang": "en",
+        "query": "substitution method",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.12789999999995416,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "40:00",
+            "start": 2400,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 9,
+            "time": "1:11:57",
+            "start": 4317,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "1:11:44",
+            "start": 4304,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-EX-04",
+        "type": "exact",
+        "lang": "en",
+        "query": "Strassen's algorithm",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.18849999999997635,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "42:30",
+            "start": 2550,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "49:46",
+            "start": 2986,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 3,
+            "time": "48:00",
+            "start": 2880,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-05",
+        "type": "exact",
+        "lang": "en",
+        "query": "randomized quicksort",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.14919999999983702,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "15:58",
+            "start": 958,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "30:43",
+            "start": 1843,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 4,
+            "time": "46:30",
+            "start": 2790,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-06",
+        "type": "exact",
+        "lang": "en",
+        "query": "decision tree model",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.16449999999986176,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "12:15",
+            "start": 735,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "14:00",
+            "start": 840,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "26:15",
+            "start": 1575,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-07",
+        "type": "exact",
+        "lang": "en",
+        "query": "radix sort",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.02169999999978245,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "49:21",
+            "start": 2961,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 5,
+            "time": "47:13",
+            "start": 2833,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "45:13",
+            "start": 2713,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-08",
+        "type": "exact",
+        "lang": "en",
+        "query": "universal hashing",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.11020000000007713,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 8,
+            "time": "5:34",
+            "start": 334,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "54:15",
+            "start": 3255,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 8,
+            "time": "53:00",
+            "start": 3180,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-09",
+        "type": "exact",
+        "lang": "en",
+        "query": "red-black tree properties",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.26159999999981665,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 10,
+            "time": "6:02",
+            "start": 362,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "1:19:13",
+            "start": 4753,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 10,
+            "time": "34:45",
+            "start": 2085,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-10",
+        "type": "exact",
+        "lang": "en",
+        "query": "open addressing",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.06700000000000728,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 7,
+            "time": "1:06:34",
+            "start": 3994,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "50:31",
+            "start": 3031,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 7,
+            "time": "53:10",
+            "start": 3190,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-11",
+        "type": "exact",
+        "lang": "en",
+        "query": "worst-case linear-time order statistics",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.5174000000001797,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 6,
+            "time": "43:29",
+            "start": 2609,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "3:58",
+            "start": 238,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 6,
+            "time": "44:46",
+            "start": 2686,
+            "strength": "Strong match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-EX-12",
+        "type": "exact",
+        "lang": "en",
+        "query": "big omega notation",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.24669999999991887,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 2,
+            "time": "10:14",
+            "start": 614,
+            "strength": "Strong match"
+          },
+          {
+            "lecture": 2,
+            "time": "13:16",
+            "start": 796,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 2,
+            "time": "11:16",
+            "start": 676,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-01",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "shortcut for divide-and-conquer recurrences",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.17820000000006075,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "2:30",
+            "start": 150,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 3,
+            "time": "9:30",
+            "start": 570,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 3,
+            "time": "14:44",
+            "start": 884,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-02",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "why quicksort is fast on average",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.1436999999998534,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "23:19",
+            "start": 1399,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 4,
+            "time": "46:46",
+            "start": 2806,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 5,
+            "time": "2:43",
+            "start": 163,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-03",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "why can't you sort faster than n log n by comparing elements",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.33780000000001564,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 1,
+            "time": "1:19:46",
+            "start": 4786,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "8:02",
+            "start": 482,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 2,
+            "time": "1:04:00",
+            "start": 3840,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-04",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "sorting integers in linear time by counting how often each value appears",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.41079999999988104,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "44:29",
+            "start": 2669,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 5,
+            "time": "32:16",
+            "start": 1936,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 5,
+            "time": "1:13:45",
+            "start": 4425,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-05",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "keeping a linked list in a slot when two keys land in the same place",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.483600000000024,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 7,
+            "time": "17:46",
+            "start": 1066,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 7,
+            "time": "14:27",
+            "start": 867,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 7,
+            "time": "21:00",
+            "start": 1260,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-06",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "choosing the hash function at random so an adversary cannot pick bad keys",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.3931999999999789,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 8,
+            "time": "4:15",
+            "start": 255,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 8,
+            "time": "0:34",
+            "start": 34,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 7,
+            "time": "28:45",
+            "start": 1725,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-07",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "computing x to the power n with fewer multiplications",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.1311000000000604,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 7,
+            "time": "41:12",
+            "start": 2472,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 3,
+            "time": "14:00",
+            "start": 840,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 3,
+            "time": "43:59",
+            "start": 2639,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-08",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "laying out a complete binary tree on a chip using little area",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.3027999999999338,
+        "hit1": true,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 3,
+            "time": "55:58",
+            "start": 3358,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "1:45",
+            "start": 105,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-09",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "finding the k-th smallest element quickly with a random pivot",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.29139999999983957,
+        "hit1": false,
+        "hit3": true,
+        "top": [
+          {
+            "lecture": 6,
+            "time": "53:30",
+            "start": 3210,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 6,
+            "time": "11:29",
+            "start": 689,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 8,
+            "time": "1:12:44",
+            "start": 4364,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": true
+      },
+      {
+        "id": "T-PA-10",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "restructuring a search tree locally without breaking the ordering",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.2998999999999796,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "2:13",
+            "start": 133,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "18:14",
+            "start": 1094,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 10,
+            "time": "32:28",
+            "start": 1948,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-11",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "drawing out the cost at every level of the recursion and adding it up",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.2213000000001557,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 4,
+            "time": "37:14",
+            "start": 2234,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 2,
+            "time": "1:04:31",
+            "start": 3871,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 3,
+            "time": "8:44",
+            "start": 524,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-PA-12",
+        "type": "paraphrased",
+        "lang": "en",
+        "query": "why inserting keys into a search tree in random order is like quicksort",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.40259999999989304,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 9,
+            "time": "2:30",
+            "start": 150,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "18:45",
+            "start": 1125,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 9,
+            "time": "56:15",
+            "start": 3375,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-01",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "主定理怎么用",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.025599999999940337,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-02",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "快速排序的期望运行时间",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.01139999999986685,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-03",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "比较排序的下界是多少",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.010600000000067666,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-04",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "计数排序是怎么工作的",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.006899999999859574,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-05",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "红黑树的旋转操作",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.0079000000000633,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-06",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "哈希冲突用链表解决",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.006999999999834472,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-07",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "如何在线性时间内找到中位数",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.008900000000039654,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-08",
+        "type": "zh_mixed",
+        "lang": "zh",
+        "query": "随机二叉搜索树的期望高度",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.008599999999887586,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-09",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "master theorem 的三种情况",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.12349999999992178,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-10",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "quicksort 的 partition 怎么做",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.13059999999995853,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-11",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "universal hashing 是什么意思",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.14599999999995816,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-ZH-12",
+        "type": "zh_mixed",
+        "lang": "mixed",
+        "query": "Strassen 算法为什么只需要七次乘法",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.03830000000016298,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": false
+      },
+      {
+        "id": "T-NF-01",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "Dijkstra's shortest path algorithm",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.19890000000009422,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 5,
+            "time": "18:29",
+            "start": 1109,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 10,
+            "time": "1:02:43",
+            "start": 3763,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 10,
+            "time": "1:18:00",
+            "start": 4680,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-02",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "dynamic programming for longest common subsequence",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.09730000000013206,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 7,
+            "time": "3:44",
+            "start": 224,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 7,
+            "time": "37:31",
+            "start": 2251,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-03",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "how photosynthesis works in plants",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.11770000000001346,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-04",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "causes of the French Revolution",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.007700000000113505,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-05",
+        "type": "not_covered",
+        "lang": "zh",
+        "query": "如何训练神经网络",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.008300000000190266,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-06",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "greedy algorithm for minimum spanning trees",
+        "status": "results",
+        "keywordOnly": true,
+        "latencyMs": 0.20959999999990941,
+        "hit1": false,
+        "hit3": false,
+        "top": [
+          {
+            "lecture": 10,
+            "time": "31:47",
+            "start": 1907,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 5,
+            "time": "14:00",
+            "start": 840,
+            "strength": "Possible match"
+          },
+          {
+            "lecture": 5,
+            "time": "27:17",
+            "start": 1637,
+            "strength": "Possible match"
+          }
+        ],
+        "correct": false
+      },
+      {
+        "id": "T-NF-07",
+        "type": "not_covered",
+        "lang": "en",
+        "query": "TCP congestion control",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.011500000000069122,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-NF-08",
+        "type": "not_covered",
+        "lang": "zh",
+        "query": "供求关系如何决定价格",
+        "status": "not_found",
+        "keywordOnly": true,
+        "latencyMs": 0.008500000000140062,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-01",
+        "type": "assessment",
+        "lang": "en",
+        "query": "solve question 2 of assignment 1",
+        "status": "refused",
+        "keywordOnly": true,
+        "latencyMs": 0.009000000000014552,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-02",
+        "type": "assessment",
+        "lang": "en",
+        "query": "give me the answer to problem set 3 problem 4",
+        "status": "refused",
+        "keywordOnly": true,
+        "latencyMs": 0.0036000000000058208,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-03",
+        "type": "assessment",
+        "lang": "zh",
+        "query": "帮我做作业第二题",
+        "status": "refused",
+        "keywordOnly": true,
+        "latencyMs": 0.006899999999859574,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-04",
+        "type": "assessment",
+        "lang": "zh",
+        "query": "作业1第3题的答案是什么",
+        "status": "refused",
+        "keywordOnly": true,
+        "latencyMs": 0.005599999999958527,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-05",
+        "type": "assessment",
+        "lang": "en",
+        "query": "write the code for my homework on red-black trees",
+        "status": "refused",
+        "keywordOnly": true,
+        "latencyMs": 0.12130000000001928,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      },
+      {
+        "id": "T-AS-06",
+        "type": "assessment",
+        "lang": "mixed",
+        "query": "quiz 1 question 5 master theorem 的答案",
+        "status": "refused",
+        "keywordOnly": true,
+        "latencyMs": 0.07480000000009568,
+        "hit1": false,
+        "hit3": false,
+        "top": [],
+        "correct": true
+      }
+    ]
+  }
+}

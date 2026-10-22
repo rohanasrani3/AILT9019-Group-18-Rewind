@@ -1,0 +1,27 @@
+{
+  "set": "practice",
+  "corpus": "demo-mit-6046j-f05",
+  "note": "DRAFT practice set: used ONLY for tuning thresholds, fusion, segmentation and model choice (eval/tune.mjs). Topics are deliberately different from the test set; run `npm run eval:split` to check for near-duplicates.",
+  "hitRule": "A result is a hit when its start time lies in [interval.start - 30 s, interval.end] for any agreed interval.",
+  "questions": [
+    { "id": "P-EX-01", "type": "exact", "lang": "en", "query": "direct access table", "intervals": [{ "lecture": 7, "start": "4:40", "end": "12:20" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-EX-02", "type": "exact", "lang": "en", "query": "Jensen's inequality", "intervals": [{ "lecture": 9, "start": "29:00", "end": "37:45" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-EX-03", "type": "exact", "lang": "en", "query": "perfect hashing", "intervals": [{ "lecture": 8, "start": "50:00", "end": "1:19:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+
+    { "id": "P-PA-01", "type": "paraphrased", "lang": "en", "query": "a sort that keeps equal keys in their original order", "intervals": [{ "lecture": 5, "start": "47:45", "end": "49:35" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-PA-02", "type": "paraphrased", "lang": "en", "query": "the n log n algorithm eventually beats the n squared one for big inputs", "intervals": [{ "lecture": 1, "start": "1:18:45", "end": "1:20:15" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-PA-03", "type": "paraphrased", "lang": "en", "query": "counting the dark nodes on every path from a node down to a leaf", "intervals": [{ "lecture": 10, "start": "10:45", "end": "14:35" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+
+    { "id": "P-ZH-01", "type": "zh_mixed", "lang": "zh", "query": "双重哈希", "intervals": [{ "lecture": 7, "start": "1:01:20", "end": "1:04:40" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-ZH-02", "type": "zh_mixed", "lang": "zh", "query": "二分查找的分治思想", "intervals": [{ "lecture": 3, "start": "10:00", "end": "12:40" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-ZH-03", "type": "zh_mixed", "lang": "mixed", "query": "big O 的定义是什么", "intervals": [{ "lecture": 2, "start": "1:55", "end": "6:10" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-ZH-04", "type": "zh_mixed", "lang": "zh", "query": "斐波那契数列怎么快速计算", "intervals": [{ "lecture": 3, "start": "17:55", "end": "33:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+
+    { "id": "P-NF-01", "type": "not_covered", "lang": "en", "query": "Bellman-Ford and negative weight cycles", "intervals": [], "notes": "Lecture 18, not indexed.", "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-NF-02", "type": "not_covered", "lang": "en", "query": "how vaccines train the immune system", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-NF-03", "type": "not_covered", "lang": "zh", "query": "量子计算的基本原理", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+
+    { "id": "P-AS-01", "type": "assessment", "lang": "en", "query": "do my problem set 2 for me", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
+    { "id": "P-AS-02", "type": "assessment", "lang": "zh", "query": "帮我解答期中考试第4题", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" }
+  ]
+}
