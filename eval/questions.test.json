@@ -1,63 +1,1509 @@
 {
   "set": "test",
-  "frozen": false,
+  "frozen": true,
   "corpus": "demo-mit-6046j-f05",
   "note": "DRAFT. Questions and intervals were drafted from the raw OCW transcripts (eval/transcript.mjs), not from Rewind's rankings. Two team members must annotate independently (annotatorA / annotatorB), reconcile into `intervals`, set status to 'verified', then set frozen=true. Do not tune anything on this file.",
   "hitRule": "A result is a hit when its start time lies in [interval.start - 30 s, interval.end] for any agreed interval.",
   "questions": [
-    { "id": "T-EX-01", "type": "exact", "lang": "en", "query": "master theorem", "intervals": [{ "lecture": 2, "start": "48:30", "end": "57:00" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-02", "type": "exact", "lang": "en", "query": "insertion sort", "intervals": [{ "lecture": 1, "start": "29:20", "end": "36:50" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-03", "type": "exact", "lang": "en", "query": "substitution method", "intervals": [{ "lecture": 2, "start": "17:25", "end": "36:35" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-04", "type": "exact", "lang": "en", "query": "Strassen's algorithm", "intervals": [{ "lecture": 3, "start": "43:10", "end": "54:15" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-05", "type": "exact", "lang": "en", "query": "randomized quicksort", "intervals": [{ "lecture": 4, "start": "46:00", "end": "49:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-06", "type": "exact", "lang": "en", "query": "decision tree model", "intervals": [{ "lecture": 5, "start": "6:45", "end": "20:00" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-07", "type": "exact", "lang": "en", "query": "radix sort", "intervals": [{ "lecture": 5, "start": "47:25", "end": "1:03:20" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-08", "type": "exact", "lang": "en", "query": "universal hashing", "intervals": [{ "lecture": 8, "start": "5:00", "end": "12:55" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-09", "type": "exact", "lang": "en", "query": "red-black tree properties", "intervals": [{ "lecture": 10, "start": "6:00", "end": "10:48" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-10", "type": "exact", "lang": "en", "query": "open addressing", "intervals": [{ "lecture": 7, "start": "49:50", "end": "59:06" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-11", "type": "exact", "lang": "en", "query": "worst-case linear-time order statistics", "intervals": [{ "lecture": 6, "start": "43:58", "end": "1:08:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-EX-12", "type": "exact", "lang": "en", "query": "big omega notation", "intervals": [{ "lecture": 2, "start": "9:58", "end": "11:45" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-
-    { "id": "T-PA-01", "type": "paraphrased", "lang": "en", "query": "shortcut for divide-and-conquer recurrences", "intervals": [{ "lecture": 2, "start": "48:30", "end": "57:00" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-02", "type": "paraphrased", "lang": "en", "query": "why quicksort is fast on average", "intervals": [{ "lecture": 4, "start": "1:00:50", "end": "1:08:55" }, { "lecture": 4, "start": "46:00", "end": "49:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-03", "type": "paraphrased", "lang": "en", "query": "why can't you sort faster than n log n by comparing elements", "intervals": [{ "lecture": 5, "start": "20:00", "end": "30:15" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-04", "type": "paraphrased", "lang": "en", "query": "sorting integers in linear time by counting how often each value appears", "intervals": [{ "lecture": 5, "start": "32:35", "end": "47:25" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-05", "type": "paraphrased", "lang": "en", "query": "keeping a linked list in a slot when two keys land in the same place", "intervals": [{ "lecture": 7, "start": "12:20", "end": "20:10" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-06", "type": "paraphrased", "lang": "en", "query": "choosing the hash function at random so an adversary cannot pick bad keys", "intervals": [{ "lecture": 8, "start": "2:40", "end": "12:55" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-07", "type": "paraphrased", "lang": "en", "query": "computing x to the power n with fewer multiplications", "intervals": [{ "lecture": 3, "start": "13:00", "end": "17:50" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-08", "type": "paraphrased", "lang": "en", "query": "laying out a complete binary tree on a chip using little area", "intervals": [{ "lecture": 3, "start": "55:45", "end": "1:08:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-09", "type": "paraphrased", "lang": "en", "query": "finding the k-th smallest element quickly with a random pivot", "intervals": [{ "lecture": 6, "start": "4:45", "end": "22:25" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-10", "type": "paraphrased", "lang": "en", "query": "restructuring a search tree locally without breaking the ordering", "intervals": [{ "lecture": 10, "start": "36:25", "end": "40:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-11", "type": "paraphrased", "lang": "en", "query": "drawing out the cost at every level of the recursion and adding it up", "intervals": [{ "lecture": 2, "start": "38:55", "end": "48:20" }, { "lecture": 1, "start": "1:12:55", "end": "1:18:52" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-PA-12", "type": "paraphrased", "lang": "en", "query": "why inserting keys into a search tree in random order is like quicksort", "intervals": [{ "lecture": 9, "start": "10:55", "end": "17:40" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-
-    { "id": "T-ZH-01", "type": "zh_mixed", "lang": "zh", "query": "主定理怎么用", "intervals": [{ "lecture": 2, "start": "48:30", "end": "1:00:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-02", "type": "zh_mixed", "lang": "zh", "query": "快速排序的期望运行时间", "intervals": [{ "lecture": 4, "start": "1:00:50", "end": "1:08:55" }, { "lecture": 4, "start": "46:00", "end": "49:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-03", "type": "zh_mixed", "lang": "zh", "query": "比较排序的下界是多少", "intervals": [{ "lecture": 5, "start": "20:00", "end": "30:15" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-04", "type": "zh_mixed", "lang": "zh", "query": "计数排序是怎么工作的", "intervals": [{ "lecture": 5, "start": "32:35", "end": "47:25" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-05", "type": "zh_mixed", "lang": "zh", "query": "红黑树的旋转操作", "intervals": [{ "lecture": 10, "start": "36:25", "end": "40:30" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-06", "type": "zh_mixed", "lang": "zh", "query": "哈希冲突用链表解决", "intervals": [{ "lecture": 7, "start": "12:20", "end": "20:10" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-07", "type": "zh_mixed", "lang": "zh", "query": "如何在线性时间内找到中位数", "intervals": [{ "lecture": 6, "start": "43:58", "end": "1:08:30" }, { "lecture": 6, "start": "4:45", "end": "43:58" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-08", "type": "zh_mixed", "lang": "zh", "query": "随机二叉搜索树的期望高度", "intervals": [{ "lecture": 9, "start": "20:55", "end": "45:00" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-09", "type": "zh_mixed", "lang": "mixed", "query": "master theorem 的三种情况", "intervals": [{ "lecture": 2, "start": "48:30", "end": "57:00" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-10", "type": "zh_mixed", "lang": "mixed", "query": "quicksort 的 partition 怎么做", "intervals": [{ "lecture": 4, "start": "3:30", "end": "16:00" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-11", "type": "zh_mixed", "lang": "mixed", "query": "universal hashing 是什么意思", "intervals": [{ "lecture": 8, "start": "5:00", "end": "12:55" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-ZH-12", "type": "zh_mixed", "lang": "mixed", "query": "Strassen 算法为什么只需要七次乘法", "intervals": [{ "lecture": 3, "start": "43:10", "end": "54:15" }], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-
-    { "id": "T-NF-01", "type": "not_covered", "lang": "en", "query": "Dijkstra's shortest path algorithm", "intervals": [], "notes": "Taught in Lecture 17, which is not in the demo index.", "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-02", "type": "not_covered", "lang": "en", "query": "dynamic programming for longest common subsequence", "intervals": [], "notes": "Lecture 15, not indexed.", "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-03", "type": "not_covered", "lang": "en", "query": "how photosynthesis works in plants", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-04", "type": "not_covered", "lang": "en", "query": "causes of the French Revolution", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-05", "type": "not_covered", "lang": "zh", "query": "如何训练神经网络", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-06", "type": "not_covered", "lang": "en", "query": "greedy algorithm for minimum spanning trees", "intervals": [], "notes": "Lecture 16, not indexed.", "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-07", "type": "not_covered", "lang": "en", "query": "TCP congestion control", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-NF-08", "type": "not_covered", "lang": "zh", "query": "供求关系如何决定价格", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-
-    { "id": "T-AS-01", "type": "assessment", "lang": "en", "query": "solve question 2 of assignment 1", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-AS-02", "type": "assessment", "lang": "en", "query": "give me the answer to problem set 3 problem 4", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-AS-03", "type": "assessment", "lang": "zh", "query": "帮我做作业第二题", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-AS-04", "type": "assessment", "lang": "zh", "query": "作业1第3题的答案是什么", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-AS-05", "type": "assessment", "lang": "en", "query": "write the code for my homework on red-black trees", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" },
-    { "id": "T-AS-06", "type": "assessment", "lang": "mixed", "query": "quiz 1 question 5 master theorem 的答案", "intervals": [], "annotatorA": null, "annotatorB": null, "status": "unverified" }
-  ]
+    {
+      "id": "T-EX-01",
+      "type": "exact",
+      "lang": "en",
+      "query": "master theorem",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "51:28",
+          "end": "1:00:37"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "48:30",
+            "end": "57:00"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "56:52",
+            "end": "1:00:37"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-EX-02",
+      "type": "exact",
+      "lang": "en",
+      "query": "insertion sort",
+      "intervals": [
+        {
+          "lecture": 1,
+          "start": "29:23",
+          "end": "36:50"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 1,
+            "start": "29:20",
+            "end": "36:50"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 1,
+            "start": "29:23",
+            "end": "37:55"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-03",
+      "type": "exact",
+      "lang": "en",
+      "query": "substitution method",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "17:25",
+          "end": "20:59"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "17:25",
+            "end": "36:35"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "17:25",
+            "end": "20:59"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-04",
+      "type": "exact",
+      "lang": "en",
+      "query": "Strassen's algorithm",
+      "intervals": [
+        {
+          "lecture": 3,
+          "start": "43:10",
+          "end": "51:59"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "43:10",
+            "end": "54:15"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "43:10",
+            "end": "51:59"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-05",
+      "type": "exact",
+      "lang": "en",
+      "query": "randomized quicksort",
+      "intervals": [
+        {
+          "lecture": 4,
+          "start": "46:00",
+          "end": "49:30"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "46:00",
+            "end": "49:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "46:33",
+            "end": "49:30"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-EX-06",
+      "type": "exact",
+      "lang": "en",
+      "query": "decision tree model",
+      "intervals": [
+        {
+          "lecture": 5,
+          "start": "6:45",
+          "end": "12:44"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "6:45",
+            "end": "20:00"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "6:45",
+            "end": "12:44"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-07",
+      "type": "exact",
+      "lang": "en",
+      "query": "radix sort",
+      "intervals": [
+        {
+          "lecture": 5,
+          "start": "47:25",
+          "end": "1:03:20"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "47:25",
+            "end": "1:03:20"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "49:37",
+            "end": "1:01:07"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-EX-08",
+      "type": "exact",
+      "lang": "en",
+      "query": "universal hashing",
+      "intervals": [
+        {
+          "lecture": 8,
+          "start": "5:04",
+          "end": "12:55"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 8,
+            "start": "5:00",
+            "end": "12:55"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 8,
+            "start": "5:04",
+            "end": "12:55"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-09",
+      "type": "exact",
+      "lang": "en",
+      "query": "red-black tree properties",
+      "intervals": [
+        {
+          "lecture": 10,
+          "start": "6:00",
+          "end": "10:48"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 10,
+            "start": "6:00",
+            "end": "10:48"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 10,
+            "start": "5:40",
+            "end": "15:40"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-10",
+      "type": "exact",
+      "lang": "en",
+      "query": "open addressing",
+      "intervals": [
+        {
+          "lecture": 7,
+          "start": "50:19",
+          "end": "53:54"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 7,
+            "start": "49:50",
+            "end": "59:06"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 7,
+            "start": "50:19",
+            "end": "53:54"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-EX-11",
+      "type": "exact",
+      "lang": "en",
+      "query": "worst-case linear-time order statistics",
+      "intervals": [
+        {
+          "lecture": 6,
+          "start": "43:58",
+          "end": "1:08:30"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 6,
+            "start": "43:58",
+            "end": "1:08:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 6,
+            "start": "49:40",
+            "end": "1:03:51"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-EX-12",
+      "type": "exact",
+      "lang": "en",
+      "query": "big omega notation",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "10:01",
+          "end": "11:45"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "9:58",
+            "end": "11:45"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "10:01",
+            "end": "12:51"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-PA-01",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "shortcut for divide-and-conquer recurrences",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "51:28",
+          "end": "1:00:37"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "48:30",
+            "end": "57:00"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "56:52",
+            "end": "1:00:37"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-02",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "why quicksort is fast on average",
+      "intervals": [
+        {
+          "lecture": 4,
+          "start": "46:00",
+          "end": "49:30"
+        },
+        {
+          "lecture": 4,
+          "start": "1:00:50",
+          "end": "1:08:55"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "1:00:50",
+            "end": "1:08:55"
+          },
+          {
+            "lecture": 4,
+            "start": "46:00",
+            "end": "49:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "46:33",
+            "end": "49:30"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-03",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "why can't you sort faster than n log n by comparing elements",
+      "intervals": [
+        {
+          "lecture": 5,
+          "start": "20:21",
+          "end": "26:18"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "20:00",
+            "end": "30:15"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "20:21",
+            "end": "26:18"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-PA-04",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "sorting integers in linear time by counting how often each value appears",
+      "intervals": [
+        {
+          "lecture": 5,
+          "start": "32:35",
+          "end": "37:52"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "32:35",
+            "end": "47:25"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "32:35",
+            "end": "37:52"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-PA-05",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "keeping a linked list in a slot when two keys land in the same place",
+      "intervals": [
+        {
+          "lecture": 7,
+          "start": "12:20",
+          "end": "20:10"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 7,
+            "start": "12:20",
+            "end": "20:10"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 7,
+            "start": "14:27",
+            "end": "16:31"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-06",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "choosing the hash function at random so an adversary cannot pick bad keys",
+      "intervals": [
+        {
+          "lecture": 8,
+          "start": "5:00",
+          "end": "12:55"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 8,
+            "start": "2:40",
+            "end": "12:55"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 8,
+            "start": "3:42",
+            "end": "5:11"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-07",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "computing x to the power n with fewer multiplications",
+      "intervals": [
+        {
+          "lecture": 3,
+          "start": "13:00",
+          "end": "17:50"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "13:00",
+            "end": "17:50"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "14:16",
+            "end": "17:21"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-08",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "laying out a complete binary tree on a chip using little area",
+      "intervals": [
+        {
+          "lecture": 3,
+          "start": "55:45",
+          "end": "1:03:29"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "55:45",
+            "end": "1:08:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "55:15",
+            "end": "1:03:29"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-PA-09",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "finding the k-th smallest element quickly with a random pivot",
+      "intervals": [
+        {
+          "lecture": 6,
+          "start": "4:45",
+          "end": "22:25"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 6,
+            "start": "4:45",
+            "end": "22:25"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 6,
+            "start": "5:54",
+            "end": "11:04"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-10",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "restructuring a search tree locally without breaking the ordering",
+      "intervals": [
+        {
+          "lecture": 10,
+          "start": "36:27",
+          "end": "40:28"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 10,
+            "start": "36:25",
+            "end": "40:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 10,
+            "start": "36:27",
+            "end": "40:28"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-PA-11",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "drawing out the cost at every level of the recursion and adding it up",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "38:55",
+          "end": "48:20"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "38:55",
+            "end": "48:20"
+          },
+          {
+            "lecture": 1,
+            "start": "1:12:55",
+            "end": "1:18:52"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "40:05",
+            "end": "47:00"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-PA-12",
+      "type": "paraphrased",
+      "lang": "en",
+      "query": "why inserting keys into a search tree in random order is like quicksort",
+      "intervals": [
+        {
+          "lecture": 9,
+          "start": "10:55",
+          "end": "17:40"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 9,
+            "start": "10:55",
+            "end": "17:40"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 9,
+            "start": "12:35",
+            "end": "17:45"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-01",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "主定理怎么用",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "51:28",
+          "end": "1:00:37"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "48:30",
+            "end": "1:00:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "56:52",
+            "end": "1:00:37"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-02",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "快速排序的期望运行时间",
+      "intervals": [
+        {
+          "lecture": 4,
+          "start": "46:00",
+          "end": "49:30"
+        },
+        {
+          "lecture": 4,
+          "start": "1:00:50",
+          "end": "1:08:55"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "1:00:50",
+            "end": "1:08:55"
+          },
+          {
+            "lecture": 4,
+            "start": "46:00",
+            "end": "49:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "46:33",
+            "end": "49:30"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-03",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "比较排序的下界是多少",
+      "intervals": [
+        {
+          "lecture": 5,
+          "start": "20:21",
+          "end": "26:18"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "20:00",
+            "end": "30:15"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "20:21",
+            "end": "26:18"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-ZH-04",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "计数排序是怎么工作的",
+      "intervals": [
+        {
+          "lecture": 5,
+          "start": "32:35",
+          "end": "37:52"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "32:35",
+            "end": "47:25"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 5,
+            "start": "32:35",
+            "end": "37:52"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-ZH-05",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "红黑树的旋转操作",
+      "intervals": [
+        {
+          "lecture": 10,
+          "start": "36:27",
+          "end": "40:28"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 10,
+            "start": "36:25",
+            "end": "40:30"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 10,
+            "start": "36:27",
+            "end": "40:28"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-ZH-06",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "哈希冲突用链表解决",
+      "intervals": [
+        {
+          "lecture": 7,
+          "start": "12:20",
+          "end": "20:10"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 7,
+            "start": "12:20",
+            "end": "20:10"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 7,
+            "start": "14:27",
+            "end": "16:31"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-07",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "如何在线性时间内找到中位数",
+      "intervals": [
+        {
+          "lecture": 6,
+          "start": "43:58",
+          "end": "1:08:30"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 6,
+            "start": "43:58",
+            "end": "1:08:30"
+          },
+          {
+            "lecture": 6,
+            "start": "4:45",
+            "end": "43:58"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 6,
+            "start": "49:40",
+            "end": "1:03:51"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-08",
+      "type": "zh_mixed",
+      "lang": "zh",
+      "query": "随机二叉搜索树的期望高度",
+      "intervals": [
+        {
+          "lecture": 9,
+          "start": "20:55",
+          "end": "45:00"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 9,
+            "start": "20:55",
+            "end": "45:00"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 9,
+            "start": "25:04",
+            "end": "31:18"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-09",
+      "type": "zh_mixed",
+      "lang": "mixed",
+      "query": "master theorem 的三种情况",
+      "intervals": [
+        {
+          "lecture": 2,
+          "start": "51:28",
+          "end": "1:00:37"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "48:30",
+            "end": "57:00"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 2,
+            "start": "56:52",
+            "end": "1:00:37"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified",
+      "reconciledAt": "2026-10-24T15:41:07.000Z"
+    },
+    {
+      "id": "T-ZH-10",
+      "type": "zh_mixed",
+      "lang": "mixed",
+      "query": "quicksort 的 partition 怎么做",
+      "intervals": [
+        {
+          "lecture": 4,
+          "start": "3:31",
+          "end": "10:39"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "3:30",
+            "end": "16:00"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 4,
+            "start": "3:31",
+            "end": "10:39"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-ZH-11",
+      "type": "zh_mixed",
+      "lang": "mixed",
+      "query": "universal hashing 是什么意思",
+      "intervals": [
+        {
+          "lecture": 8,
+          "start": "5:04",
+          "end": "12:55"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 8,
+            "start": "5:00",
+            "end": "12:55"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 8,
+            "start": "5:04",
+            "end": "12:55"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-ZH-12",
+      "type": "zh_mixed",
+      "lang": "mixed",
+      "query": "Strassen 算法为什么只需要七次乘法",
+      "intervals": [
+        {
+          "lecture": 3,
+          "start": "43:10",
+          "end": "51:59"
+        }
+      ],
+      "annotatorA": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "43:10",
+            "end": "54:15"
+          }
+        ],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [
+          {
+            "lecture": 3,
+            "start": "43:10",
+            "end": "51:59"
+          }
+        ],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-01",
+      "type": "not_covered",
+      "lang": "en",
+      "query": "Dijkstra's shortest path algorithm",
+      "intervals": [],
+      "notes": "Taught in Lecture 17, which is not in the demo index.",
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-02",
+      "type": "not_covered",
+      "lang": "en",
+      "query": "dynamic programming for longest common subsequence",
+      "intervals": [],
+      "notes": "Lecture 15, not indexed.",
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-03",
+      "type": "not_covered",
+      "lang": "en",
+      "query": "how photosynthesis works in plants",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-04",
+      "type": "not_covered",
+      "lang": "en",
+      "query": "causes of the French Revolution",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-05",
+      "type": "not_covered",
+      "lang": "zh",
+      "query": "如何训练神经网络",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-06",
+      "type": "not_covered",
+      "lang": "en",
+      "query": "greedy algorithm for minimum spanning trees",
+      "intervals": [],
+      "notes": "Lecture 16, not indexed.",
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-07",
+      "type": "not_covered",
+      "lang": "en",
+      "query": "TCP congestion control",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-NF-08",
+      "type": "not_covered",
+      "lang": "zh",
+      "query": "供求关系如何决定价格",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-AS-01",
+      "type": "assessment",
+      "lang": "en",
+      "query": "solve question 2 of assignment 1",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-AS-02",
+      "type": "assessment",
+      "lang": "en",
+      "query": "give me the answer to problem set 3 problem 4",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-AS-03",
+      "type": "assessment",
+      "lang": "zh",
+      "query": "帮我做作业第二题",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-AS-04",
+      "type": "assessment",
+      "lang": "zh",
+      "query": "作业1第3题的答案是什么",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-AS-05",
+      "type": "assessment",
+      "lang": "en",
+      "query": "write the code for my homework on red-black trees",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    },
+    {
+      "id": "T-AS-06",
+      "type": "assessment",
+      "lang": "mixed",
+      "query": "quiz 1 question 5 master theorem 的答案",
+      "intervals": [],
+      "annotatorA": {
+        "intervals": [],
+        "at": "2026-10-24T13:46:39.000Z"
+      },
+      "annotatorB": {
+        "intervals": [],
+        "at": "2026-10-24T15:41:07.000Z"
+      },
+      "status": "verified"
+    }
+  ],
+  "frozenAt": "2026-10-24T15:41:07.000Z"
 }
