@@ -10,11 +10,27 @@ Everything runs on your own computer. The captions, the search index and the emb
 
 ## Install (no coding needed)
 
+Option A: Install from pre-built release (no coding needed)
 1. Download `rewind-v0.1.0.zip` from the GitHub release and unzip it. You get a folder called `rewind-v0.1.0`.
 2. Open **chrome://extensions** (Chrome) or **edge://extensions** (Edge).
 3. Turn on **Developer mode** (top-right in Chrome, left sidebar in Edge).
 4. Click **Load unpacked** and select the `rewind-v0.1.0` folder.
 5. Pin Rewind from the puzzle-piece menu, then click its icon. The Rewind side panel opens.
+
+Option B: Build and load from source
+
+If a pre-built release zip is not available or you want to build locally:
+
+1. Clone or download this repository.
+2. Open a terminal in the project directory and run:
+```bash
+npm install
+npm run demo:build -- --model minilm-l12
+npm run build
+```
+3. Open chrome://extensions (or edge://extensions) and enable Developer mode.
+4. Click Load unpacked and select the generated dist folder inside the repo.
+5. Pin Rewind and open its side panel.
 
 _Screenshots: `docs/install-1.png` … `docs/install-4.png` (to be added by the team)._
 
@@ -172,7 +188,8 @@ What these show, honestly:
 ## For developers
 
 ```bash
-npm install
+npm install                                # install dependencies
+npx playwright install                     # install Playwright browser binaries (required for E2E testing)
 npm run demo:build -- --model minilm-l12   # fetch OCW captions, build the demo index (also --model e5-small)
 npm test                                   # 64 unit tests (Vitest)
 npm run build                              # → dist/ (load this folder unpacked)
