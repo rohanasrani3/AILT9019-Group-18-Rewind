@@ -1,6 +1,8 @@
 // Builds the bundled demo index from openly licensed MIT OCW caption files.
 //   node demo/build-demo.mjs [--model e5-small|minilm-l12]  -> demo/data/<model>/corpus.json + vectors.bin
 // Raw caption files are cached in demo/raw/ so annotation tools can read the exact source text.
+//   --captions-from <lecture>=<file.vtt>  use a local caption file (e.g. a Whisper transcript) for one
+//   lecture; files marked "Machine-transcribed" are flagged so results show that label.
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
@@ -21,7 +23,16 @@ const outDir = path.join(here, 'data', modelKey);
 await fs.mkdir(rawDir, { recursive: true });
 await fs.mkdir(outDir, { recursive: true });
 
+const overrides = new Map();
+process.argv.forEach((a, i) => {
+  if (a === '--captions-from') {
+    const [n, file] = process.argv[i + 1].split(/=(.*)/s);
+    overrides.set(Number(n), path.resolve(file));
+  }
+});
+
 async function captionsFor(lec) {
+  if (overrides.has(lec.n)) return fs.readFile(overrides.get(lec.n), 'utf8');
   const file = path.join(rawDir, `lecture-${String(lec.n).padStart(2, '0')}.vtt`);
   try {
     return await fs.readFile(file, 'utf8');
@@ -38,8 +49,11 @@ const videos = [];
 for (const lec of src.lectures) {
   let cues = null;
   let error = null;
+  let machineTranscribed = false;
   try {
-    cues = parseCaptions(await captionsFor(lec));
+    const raw = await captionsFor(lec);
+    machineTranscribed = /^NOTE Machine-transcribed/m.test(raw);
+    cues = parseCaptions(raw);
   } catch (e) {
     error = String(e.message ?? e);
   }
@@ -53,6 +67,7 @@ for (const lec of src.lectures) {
     sourcePage: lec.page,
     captionSource: lec.captions,
     license: lec.license,
+    ...(machineTranscribed ? { machineTranscribed: true, captionSource: `local file: ${path.basename(overrides.get(lec.n))}` } : {}),
     duration,
     cues,
     ...(error ? { captionStatus: 'error', error } : {}),

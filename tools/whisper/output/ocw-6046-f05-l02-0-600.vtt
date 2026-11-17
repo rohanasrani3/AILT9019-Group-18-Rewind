@@ -1,0 +1,415 @@
+WEBVTT
+
+NOTE Machine-transcribed; not verified
+NOTE Source: https://archive.org/download/MIT6.046JF05MPEG4/ocw-6.046-12sep2005-220k.mp4
+NOTE Licence: CC BY-NC-SA 4.0 (MIT OpenCourseWare)
+NOTE Model: Xenova/whisper-base.en@95bf40a5
+NOTE Generated: 2026-11-17T08:34:40.845Z
+
+00:00:00.000 --> 00:00:07.000
+[ Pause ]
+
+00:00:07.500 --> 00:00:09.000
+>> Thank you.
+
+00:00:09.000 --> 00:00:12.000
+So my name is Eric Demane.
+
+00:00:12.000 --> 00:00:14.000
+You should call me Eric.
+
+00:00:14.000 --> 00:00:16.000
+Welcome back to 6046.
+
+00:00:16.000 --> 00:00:18.000
+This is lecture two.
+
+00:00:18.000 --> 00:00:23.000
+And today we're going to essentially fill in some of the
+
+00:00:23.000 --> 00:00:25.740
+more mathematical underpinnings
+
+00:00:25.740 --> 00:00:27.240
+of lecture one.
+
+00:00:27.240 --> 00:00:31.440
+So lecture one, we just sort of barely got our feet wet with some analysis of algorithms
+
+00:00:31.440 --> 00:00:33.720
+in search and sort and merge sort.
+
+00:00:33.720 --> 00:00:35.500
+And we needed a couple of tools.
+
+00:00:35.500 --> 00:00:39.160
+We had this big idea of asymptotics and forgetting about constants, just looking at
+
+00:00:39.160 --> 00:00:40.480
+the lead term.
+
+00:00:40.480 --> 00:00:46.000
+And so today we're going to develop asymptotic notation really so that we know that mathematically.
+
+00:00:46.000 --> 00:00:49.000
+And we also ended up with recurrence with merge sort,
+
+00:00:49.000 --> 00:00:51.000
+the running time of merge sort.
+
+00:00:51.000 --> 00:00:53.000
+So we need to see how to solve recurrences.
+
+00:00:53.000 --> 00:00:56.000
+And we'll do that. Those two things today.
+
+00:00:56.000 --> 00:00:59.000
+Question. Yes, I will speak louder.
+
+00:00:59.000 --> 00:01:02.000
+Thanks. Good. Even though I have a microphone,
+
+00:01:02.000 --> 00:01:09.000
+I'm not amplified. Good. Okay. So let's start with asymptotic notation.
+
+00:01:17.000 --> 00:01:20.000
+So we've seen some basic asymptotic notation.
+
+00:01:20.000 --> 00:01:22.000
+I'm sure you've seen it in other classes before.
+
+00:01:22.000 --> 00:01:25.000
+Things like big O notation.
+
+00:01:25.000 --> 00:01:29.000
+And today we're going to really define this rigorously
+
+00:01:29.000 --> 00:01:32.000
+so we know what's true and what isn't.
+
+00:01:32.000 --> 00:01:37.000
+What's valid? What isn't.
+
+00:01:37.000 --> 00:01:43.000
+OK. So we're going to define --
+
+00:01:43.000 --> 00:01:48.000
+and unfortunately today is going to be really mathematical.
+
+00:01:48.000 --> 00:01:52.000
+And really no algorithms today, which is sort of a anticlimax.
+
+00:01:52.000 --> 00:01:58.000
+But next lecture we will talk about real algorithms, and we will apply all the things we learned today to real algorithms.
+
+00:01:58.000 --> 00:02:04.000
+So this is big O notation, capital O notation.
+
+00:02:04.000 --> 00:02:07.000
+So we have f of n equals big O of g of n.
+
+00:02:07.000 --> 00:02:17.000
+This means that there are some suitable constants,
+
+00:02:17.000 --> 00:02:34.080
+c and n not, such that f is bounded by c times g of n
+
+00:02:34.080 --> 00:02:35.880
+for all sufficiently large n.
+
+00:02:39.120 --> 00:02:41.480
+So this is a pretty intuitive notion.
+
+00:02:41.480 --> 00:02:42.360
+We've seen it before.
+
+00:02:42.360 --> 00:02:46.380
+We're going to assume that f of n is non-negative here.
+
+00:02:46.380 --> 00:02:50.060
+And I just want f of n to be bounded above by g of n.
+
+00:02:50.060 --> 00:02:56.340
+So we've seen a bunch of examples, but something like 2
+
+00:02:56.340 --> 00:03:00.280
+times n squared is big o of n cubed.
+
+00:03:00.280 --> 00:03:02.540
+Define.
+
+00:03:02.540 --> 00:03:05.000
+And roughly this means if you drop leading constants and
+
+00:03:05.000 --> 00:03:09.000
+lower order terms then this is less than or equal to that.
+
+00:03:09.000 --> 00:03:13.000
+So big O corresponds roughly to less than or equal to.
+
+00:03:13.000 --> 00:03:17.000
+But this is the formalization. Another way to think of it
+
+00:03:17.000 --> 00:03:21.000
+formally as -- so a funny thing about this notation is this
+
+00:03:21.000 --> 00:03:23.000
+asymmetric. Normally you think of a
+
+00:03:23.000 --> 00:03:27.000
+quality being symmetric. A equals B then B equals a. But it's not true here.
+
+00:03:27.000 --> 00:03:31.000
+We don't have n cubed being big O of n squared.
+
+00:03:31.000 --> 00:03:34.000
+You don't even have big O of n cubed equal to n squared.
+
+00:03:34.000 --> 00:03:38.000
+So we'll see exactly what that means in a second.
+
+00:03:38.000 --> 00:03:49.000
+But before we get there, so this is a bit bizarre notation, and you should always think about what it really means.
+
+00:03:49.000 --> 00:03:56.000
+Another way to think about what it really means is that f(n) is in some set of functions
+
+00:03:56.000 --> 00:04:13.640
+that are like g. So you could define big o of g(n) to be a set of functions. Let's call it f of n such that there exists constants.
+
+00:04:13.640 --> 00:04:15.800
+You have the same definition.
+
+00:04:15.800 --> 00:04:18.320
+I think fancy here.
+
+00:04:18.320 --> 00:04:27.000
+C and n naught, such that we have the bound f of n is between 0 and c times
+
+00:04:27.000 --> 00:04:28.000
+g of n.
+
+00:04:28.000 --> 00:04:35.000
+OK, so a bit of a long definition.
+
+00:04:35.000 --> 00:04:39.000
+That's why we use the notation to avoid having to write this
+
+00:04:39.000 --> 00:04:42.000
+over and over. So, you can think of,
+
+00:04:42.000 --> 00:04:47.240
+instead of n squared being equal to big o of n cubed, what we really mean is that 2n squared is
+
+00:04:47.240 --> 00:04:50.440
+in the set big o of n cubed.
+
+00:04:50.440 --> 00:04:56.320
+So when we write equal sign, we in some sense mean this
+
+00:04:56.320 --> 00:04:57.800
+in the set.
+
+00:04:57.800 --> 00:04:59.400
+But we're going to use equal sign.
+
+00:04:59.400 --> 00:05:01.560
+You could write this, and occasionally you see papers
+
+00:05:01.560 --> 00:05:06.400
+that write this, but this is the notation then that we're going to use.
+
+00:05:06.400 --> 00:05:07.440
+So that has the consequence.
+
+00:05:07.440 --> 00:05:13.480
+The equal sign is asymmetric, just like this operator.
+
+00:05:13.480 --> 00:05:35.000
+OK, we have some lot to cover today.
+
+00:05:35.000 --> 00:05:37.000
+So I'm going to go relatively fast.
+
+00:05:37.000 --> 00:05:41.000
+If anything is unclear, just stop, ask questions, then I will slow down.
+
+00:05:41.000 --> 00:05:47.000
+Otherwise, I'll take this as all completely obvious, and I can keep going at full speed.
+
+00:05:47.000 --> 00:05:53.000
+OK, so the convention, this is intuitive, I guess,
+
+00:05:53.000 --> 00:06:00.000
+if you do some macro programming or something.
+
+00:06:00.000 --> 00:06:10.000
+But it's a bit more mathematical.
+
+00:06:10.000 --> 00:06:14.000
+So we've defined bigger notation and the equals big O
+
+00:06:14.000 --> 00:06:18.000
+of something.
+
+00:06:18.000 --> 00:06:22.000
+And so we've only defined big O when, on the equal sign,
+
+00:06:22.000 --> 00:06:26.000
+we have big O of some function. But it's useful to have some general expression on the right
+
+00:06:26.000 --> 00:06:28.000
+hand side that involves big O.
+
+00:06:28.000 --> 00:06:35.000
+So, for example, let's say we have f of n is n cubed plus
+
+00:06:35.000 --> 00:06:41.000
+order n squared. So, this is attempting to get an
+
+00:06:41.000 --> 00:06:44.000
+error bound. This is saying f n is basically n cubed,
+
+00:06:44.000 --> 00:06:45.000
+but there's these lower order terms that are big O of n squared. So this is attempting to get an error bound. This is saying, fn is basically n cubed,
+
+00:06:45.000 --> 00:06:48.000
+but there's these lower order terms that are big o of n
+
+00:06:48.000 --> 00:06:49.000
+squared.
+
+00:06:49.000 --> 00:06:53.000
+And so this means that there's a function,
+
+00:06:53.000 --> 00:07:01.000
+so I'm short-hand for a function, h of n,
+
+00:07:01.000 --> 00:07:11.000
+which is in big o of n squared, or equals big o of n squared.
+
+00:07:11.000 --> 00:07:19.000
+Such that f of n equals n cubed plus h of n.
+
+00:07:19.000 --> 00:07:23.000
+So saying there's some lower order terms that are bounded above by some constant
+
+00:07:23.000 --> 00:07:25.840
+times n squared for sufficiently large n.
+
+00:07:25.840 --> 00:07:27.680
+And that's what's here.
+
+00:07:27.680 --> 00:07:30.600
+And then f of n equals-- now this is a true equality--
+
+00:07:30.600 --> 00:07:32.840
+n cubed plus that error term.
+
+00:07:32.840 --> 00:07:35.080
+So this is-- you're very useful here.
+
+00:07:35.080 --> 00:07:37.840
+Essentially, I'm expressing what the lead constant is.
+
+00:07:37.840 --> 00:07:39.680
+And then saying, well, there's other stuff in it's all
+
+00:07:39.680 --> 00:07:41.200
+at most n squared.
+
+00:07:41.200 --> 00:07:44.240
+Saying that f of n, therefore, is also order n cubed.
+
+00:07:44.240 --> 00:07:46.000
+But that's a bit weaker of a statement.
+
+00:07:46.000 --> 00:07:48.000
+This is a bit more refined.
+
+00:07:48.000 --> 00:07:51.000
+We want you to use this too often, but it's useful.
+
+00:07:51.000 --> 00:07:53.000
+Sometimes we'll see, like in last class, we even had a big O
+
+00:07:53.000 --> 00:07:56.000
+inside a summation. So you can use them all over the
+
+00:07:56.000 --> 00:07:58.000
+place. The point is they represent some
+
+00:07:58.000 --> 00:08:03.000
+function in that set. A bit less intuitive,
+
+00:08:03.000 --> 00:08:05.000
+and this is more subtle,
+
+00:08:05.000 --> 00:08:11.000
+is what it means to have bigger on the left-hand side.
+
+00:08:11.000 --> 00:08:16.000
+It means the same thing, but there's some convention what
+
+00:08:16.000 --> 00:08:22.000
+equality means. And this is why equal sign is asymmetric.
+
+00:08:22.000 --> 00:08:26.600
+Equals means, you should read equals like is.
+
+00:08:26.600 --> 00:08:32.680
+So is means that everything over here is something over here.
+
+00:08:32.680 --> 00:08:34.800
+So there's an implicit for all on the left-hand side,
+
+00:08:34.800 --> 00:08:36.600
+and there exists on the right-hand side.
+
+00:08:36.600 --> 00:08:38.000
+This is a true statement.
+
+00:08:38.000 --> 00:08:40.560
+Anything that is n squared plus big o of n
+
+00:08:40.560 --> 00:08:44.360
+is also big o of n squared, but not the other way around.
+
+00:08:44.360 --> 00:08:46.480
+So this is a bit asymmetric.
+
+00:08:50.320 --> 00:08:53.400
+If you think about it, this is pretty intuitive,
+
+00:08:53.400 --> 00:09:15.000
+but it's subtle, so you should be careful. [ Writing on Board ]
+
+00:09:15.500 --> 00:09:19.000
+So this says for any expansion of the macro on the left-hand side,
+
+00:09:19.000 --> 00:09:26.040
+which would be f of n, there's an expansion of the macro on the right-hand side,
+
+00:09:26.040 --> 00:09:27.320
+such that we get equality.
+
+00:09:30.480 --> 00:09:32.000
+And what this allows you to do is
+
+00:09:32.000 --> 00:09:35.280
+if you have a chain of equal sign relations, a chain of ises,
+
+00:09:35.280 --> 00:09:38.400
+then the very first one is equal to or bounded
+
+00:09:38.400 --> 00:09:39.600
+by the very last one.
+
+00:09:39.600 --> 00:09:41.960
+So you can chain equal signs in the way you normally would.
+
+00:09:41.960 --> 00:09:44.960
+You just can't flip them around.
+
+00:09:44.960 --> 00:09:45.460
+Good. So that's big O notation.

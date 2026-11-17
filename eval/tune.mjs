@@ -3,15 +3,19 @@
 //   node eval/tune.mjs                 -> print best settings per model
 //   node eval/tune.mjs --write         -> also write them into src/core/config.js (TUNED block)
 //   node eval/tune.mjs --write --pick-default  -> also set DEFAULT_MODEL to the practice-set winner
+//   node eval/tune.mjs --llm openrouter [--llm-model id] [--write]  -> tune the LLM-rewriting mode (stored as '<model>+llm')
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { prepareQuestions, runQuestions, summarize } from '../src/eval/metrics.js';
 import { configFor, MODEL_DEFAULTS, TUNED } from '../src/core/config.js';
 import { MODELS } from '../src/embed/embedder.js';
-import { loadDemoIndex, loadQuestionFile, cachedEmbedder, rootDir } from './common.mjs';
+import { loadDemoIndex, loadQuestionFile, cachedEmbedder, cachedRewriter, rootDir } from './common.mjs';
 
 const write = process.argv.includes('--write');
 const pickDefault = process.argv.includes('--pick-default');
+const llmProvider = process.argv.includes('--llm') ? process.argv[process.argv.indexOf('--llm') + 1] : null;
+const rewriter = llmProvider ? await cachedRewriter(llmProvider, process.argv.includes('--llm-model') ? process.argv[process.argv.indexOf('--llm-model') + 1] : undefined) : null;
+const rewrite = rewriter?.rewrite ?? null;
 const qfile = await loadQuestionFile('practice');
 
 const range = (a, b, step) => {
@@ -41,7 +45,7 @@ for (const modelKey of Object.keys(MODELS)) {
   }
   const questions = prepareQuestions(qfile, index);
   const emb = await cachedEmbedder(modelKey);
-  const base = configFor(modelKey);
+  const base = configFor(modelKey, { llm: !!rewrite });
   const gap = MODEL_DEFAULTS[modelKey].tauStrong - MODEL_DEFAULTS[modelKey].tauV;
 
   let best = null;
@@ -50,7 +54,7 @@ for (const modelKey of Object.keys(MODELS)) {
       for (const rrfK of SHARED.rrfK)
         for (const maxSnap of SHARED.maxSnap) {
           const config = { ...base, tauV, delta, rrfK, maxSnap, tauStrong: +(tauV + gap).toFixed(4) };
-          const s = summarize(await runQuestions(index, questions, { embedQuery: emb.embedQuery, config }));
+          const s = summarize(await runQuestions(index, questions, { embedQuery: emb.embedQuery, config, rewrite }));
           const o = objective(s);
           if (!best || better(o, best.o)) best = { o, s, params: { tauV, delta, rrfK, maxSnap, tauStrong: config.tauStrong } };
         }
@@ -78,14 +82,17 @@ console.log('Caution: 15 practice questions is a small tuning set; expect some o
 
 if (write) {
   const tuned = { ...TUNED };
-  for (const [k, r] of Object.entries(results)) tuned[k] = { ...r.hybrid.params, ...r.keyword.params };
+  for (const [k, r] of Object.entries(results)) {
+    if (rewrite) tuned[`${k}+llm`] = { ...r.hybrid.params };
+    else tuned[k] = { ...r.hybrid.params, ...r.keyword.params };
+  }
   const file = path.join(rootDir, 'src', 'core', 'config.js');
   let src = await fs.readFile(file, 'utf8');
   src = src.replace(
     /\/\/ --- TUNED \(written by eval\/tune\.mjs\) ---[\s\S]*?\/\/ --- END TUNED ---/,
     `// --- TUNED (written by eval/tune.mjs) ---\n// Tuned on eval/questions.practice.json, ${new Date().toISOString().slice(0, 10)}.\nexport const TUNED = ${JSON.stringify(tuned, null, 2)};\n// --- END TUNED ---`
   );
-  if (pickDefault && winner) src = src.replace(/export const DEFAULT_MODEL = '[^']+';/, `export const DEFAULT_MODEL = '${winner}';`);
+  if (pickDefault && winner && !rewrite) src = src.replace(/export const DEFAULT_MODEL = '[^']+';/, `export const DEFAULT_MODEL = '${winner}';`);
   await fs.writeFile(file, src);
   console.log(`Wrote TUNED${pickDefault ? ` and DEFAULT_MODEL='${winner}'` : ''} to src/core/config.js`);
 }

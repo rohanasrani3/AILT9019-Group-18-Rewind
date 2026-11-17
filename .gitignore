@@ -4,3 +4,5 @@ release/
 .cache/
 test-results/
 playwright-report/
+.env
+.env.*

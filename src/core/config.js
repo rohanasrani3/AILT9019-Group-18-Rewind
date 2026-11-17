@@ -50,8 +50,11 @@ export const TUNED = {
 };
 // --- END TUNED ---
 
-export function configFor(model) {
-  return { ...DEFAULTS, ...(MODEL_DEFAULTS[model] ?? {}), ...(TUNED[model] ?? {}), model };
+// LLM-assisted search (optional rewriting) has its own tuned settings, stored under
+// "<model>+llm"; local-only search never uses them.
+export function configFor(model, { llm = false } = {}) {
+  const base = { ...DEFAULTS, ...(MODEL_DEFAULTS[model] ?? {}), ...(TUNED[model] ?? {}) };
+  return llm ? { ...base, ...(TUNED[`${model}+llm`] ?? {}), model, llm: true } : { ...base, model };
 }
 
 export const CONFIG = configFor(DEFAULT_MODEL);

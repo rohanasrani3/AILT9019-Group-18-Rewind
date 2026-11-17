@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-22T08:23:04.560Z",
+  "generatedAt": "2026-11-17T08:42:22.041Z",
   "runtime": "browser",
   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
   "hardwareConcurrency": 16,
   "deviceMemoryGB": 32,
   "set": "test",
   "model": "minilm-l12",
-  "provisional": true,
-  "modelLoadMs": 772,
+  "provisional": false,
+  "modelLoadMs": 1466,
   "corpus": {
     "videos": 10,
     "windows": 3054
@@ -22,8 +22,8 @@
       },
       "paraphrased": {
         "n": 12,
-        "hit1": 5,
-        "hit3": 7,
+        "hit1": 4,
+        "hit3": 6,
         "falseRefusals": 0
       },
       "zh_mixed": {
@@ -43,10 +43,12 @@
     },
     "answerable": {
       "n": 36,
-      "hit1": 16,
-      "hit3": 26
+      "hit1": 15,
+      "hit3": 25
     },
-    "medianLatencyMs": 11.800000000046566,
+    "medianLatencyMs": 25.99999999953434,
+    "medianLlmMs": null,
+    "llmErrors": 0,
     "keywordOnlyQueries": 0
   },
   "baseline": {
@@ -59,8 +61,8 @@
       },
       "paraphrased": {
         "n": 12,
-        "hit1": 4,
-        "hit3": 7,
+        "hit1": 2,
+        "hit3": 6,
         "falseRefusals": 0
       },
       "zh_mixed": {
@@ -80,21 +82,23 @@
     },
     "answerable": {
       "n": 36,
-      "hit1": 10,
-      "hit3": 17
+      "hit1": 8,
+      "hit3": 16
     },
-    "medianLatencyMs": 0.049999999813735485,
+    "medianLatencyMs": 0.20000000018626451,
+    "medianLlmMs": null,
+    "llmErrors": 0,
     "keywordOnlyQueries": 50
   },
   "targets": [
     {
       "target": "paraphrased Hit@3 >= 80%",
-      "value": "7/12",
+      "value": "6/12",
       "pass": false
     },
     {
       "target": "paraphrased Hit@3 >= baseline + 20 pts",
-      "value": "58% vs 58%",
+      "value": "50% vs 50%",
       "pass": false
     },
     {
@@ -119,7 +123,7 @@
     },
     {
       "target": "median local retrieval < 2 s",
-      "value": "11.8 ms",
+      "value": "26.0 ms",
       "pass": true
     }
   ]

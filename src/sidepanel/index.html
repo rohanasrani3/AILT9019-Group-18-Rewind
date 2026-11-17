@@ -36,11 +36,25 @@
         <ol id="related-list" class="results"></ol>
       </section>
       <p id="coverage-line" class="fine"></p>
+
+      <details id="timeline" class="timeline">
+        <summary>Browse a lecture's concept timeline</summary>
+        <p class="fine">Topic sections found automatically in the captions, each named by its most distinctive words. Computed on this device.</p>
+        <label for="timeline-video">Lecture</label>
+        <select id="timeline-video"></select>
+        <ol id="timeline-list" class="timeline-list" aria-label="Topic sections"></ol>
+      </details>
     </section>
 
     <section id="panel-courses" role="tabpanel" aria-labelledby="tab-courses" hidden>
       <h2>Your courses</h2>
       <ul id="course-list" class="course-list"></ul>
+
+      <h2>Import an index</h2>
+      <p class="fine">Load a <code>.rewind.json</code> file exported from Rewind. Only import files you trust and are allowed to use; never share indexes of HKU recordings.</p>
+      <label for="import-file" class="file-label">Choose a .rewind.json file</label>
+      <input id="import-file" type="file" accept=".json,application/json">
+      <div id="import-status" class="status" aria-live="polite"></div>
 
       <h2>Try the demo</h2>
       <p class="fine">An openly licensed demo: ten captioned lectures from MIT OpenCourseWare 6.046J <em>Introduction to Algorithms</em> (Fall 2005), CC BY-NC-SA 4.0. No HKU access or API key needed.</p>
@@ -73,8 +87,31 @@
         <button id="remove-model" class="secondary">Remove downloaded model</button>
       </div>
 
+      <h2>Optional: AI query help (off by default)</h2>
+      <p class="fine">With your own API key, an external language model can (1) rewrite your question into lecture-style English search terms and (2) give each result a one-line label. Local search always runs too; if the API fails, you still get the local results. It never sees assessment requests and is instructed never to answer or solve anything.</p>
+      <label for="llm-provider">Provider</label>
+      <select id="llm-provider"><option value="openrouter">OpenRouter</option><option value="openai">OpenAI</option></select>
+      <label for="llm-model">Model</label>
+      <input id="llm-model" type="text" autocomplete="off" spellcheck="false">
+      <label for="llm-key">API key <span class="hint">(kept in session storage; cleared when the browser closes)</span></label>
+      <input id="llm-key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-…">
+      <p class="fine"><a id="llm-key-link" href="https://openrouter.ai/keys" target="_blank" rel="noopener">Get a key</a> · usage is billed to your own account by the provider.</p>
+      <div class="button-row">
+        <button id="llm-save">Save key &amp; test connection</button>
+        <button id="llm-remove" class="secondary">Remove key</button>
+      </div>
+      <div id="llm-status" class="status" aria-live="polite"></div>
+      <fieldset class="consent">
+        <legend>What leaves your device</legend>
+        <label class="check"><input type="checkbox" id="llm-rewrite"> Send my <strong>question text</strong> to rewrite it into search terms</label>
+        <label class="check"><input type="checkbox" id="llm-labels"> Send up to <strong>3 short result excerpts</strong> (≤ 320 characters each) for one-line labels</label>
+        <p class="fine">Excerpts that look personal (emails, phone numbers, student IDs, names) are never sent. For Panopto courses, labels stay off unless you tick “external processing permitted” for that course in the Courses tab. The provider's data policy applies to what is sent.</p>
+        <p class="fine"><strong>Exact request preview</strong> (for your last question):</p>
+        <pre id="llm-preview" class="preview" tabindex="0" aria-label="Exact request preview">Run a search first to see exactly what would be sent.</pre>
+      </fieldset>
+
       <h2>Your data</h2>
-      <p class="fine">Captions, search indexes and settings are stored only in this browser. Rewind collects no usage analytics and sends nothing to any server. Opening a video uses the normal Panopto or YouTube page.</p>
+      <p class="fine">Captions, search indexes and settings are stored only in this browser. Rewind collects no usage analytics. Nothing is sent anywhere unless you turn on the optional AI query help above. Opening a video uses the normal Panopto or YouTube page.</p>
       <p id="storage-line" class="fine"></p>
       <button id="delete-all" class="danger">Delete all Rewind data</button>
       <div id="delete-status" class="status" aria-live="polite"></div>
@@ -86,7 +123,7 @@
         <li>It does not bypass Panopto access controls or handle passwords.</li>
         <li>It does not share captions or indexes with anyone.</li>
       </ul>
-      <p class="fine">LLM query rewriting and Whisper transcription from the proposal are not part of this version.</p>
+      <p class="fine">Local Whisper transcription is a separate command-line tool for licensed media only (see the README); it is not part of the extension.</p>
     </section>
   </main>
   <script type="module" src="panel.js"></script>

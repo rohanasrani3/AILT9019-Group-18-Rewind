@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rewind — find it in the lecture</title>
+  <meta name="description" content="Rewind is a browser extension that finds the moment a recorded lecture explained an idea. Ask in English or Chinese; search runs locally on the captions.">
+  <link rel="icon" href="img/icon128.png">
+  <style>
+    :root {
+      --bg: #ffffff; --fg: #1b2130; --muted: #5a6376; --line: #dde2ea; --soft: #f4f6fa;
+      --accent: #1f4e8c; --accent-soft: #e6eef9; --ok: #1d6b3a; --ok-soft: #e4f3ea; --no: #a23a3a; --no-soft: #fbeaea;
+      --code: #f1f3f7;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #12151b; --fg: #e5e8ee; --muted: #a2aaba; --line: #2b313d; --soft: #191d25;
+        --accent: #86b4ff; --accent-soft: #1b2638; --ok: #74d39a; --ok-soft: #15291e; --no: #ef8f8f; --no-soft: #2e1818;
+        --code: #1c2029;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #12151b; --fg: #e5e8ee; --muted: #a2aaba; --line: #2b313d; --soft: #191d25;
+      --accent: #86b4ff; --accent-soft: #1b2638; --ok: #74d39a; --ok-soft: #15291e; --no: #ef8f8f; --no-soft: #2e1818;
+      --code: #1c2029;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+    a { color: var(--accent); }
+    header.hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .brand img { width: 44px; height: 44px; border-radius: 10px; }
+    .brand span { font-weight: 700; font-size: 20px; color: var(--accent); }
+    h1 { font-size: clamp(30px, 6vw, 48px); line-height: 1.1; margin: 0 0 16px; letter-spacing: -0.5px; }
+    h2 { font-size: clamp(22px, 4vw, 28px); margin: 0 0 12px; letter-spacing: -0.2px; }
+    h3 { font-size: 18px; margin: 0 0 6px; }
+    .lede { font-size: clamp(17px, 2.4vw, 20px); color: var(--muted); max-width: 720px; margin: 0 0 24px; }
+    .cta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; border: 1px solid var(--accent); text-decoration: none; font-weight: 600; }
+    .btn.primary { background: var(--accent); color: var(--bg); }
+    section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card { background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+    .muted { color: var(--muted); }
+    .small { font-size: 14px; }
+    figure { margin: 0; }
+    figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; background: var(--soft); }
+    figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+    .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    svg.pipe { width: 100%; height: auto; }
+    svg.pipe .box { fill: var(--soft); stroke: var(--line); }
+    svg.pipe .hl { fill: var(--accent-soft); stroke: var(--accent); }
+    svg.pipe text { fill: var(--fg); font: 13px system-ui, sans-serif; }
+    svg.pipe .lbl { fill: var(--muted); font-size: 12px; }
+    svg.pipe .arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#a); }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { border-collapse: collapse; width: 100%; font-size: 15px; min-width: 560px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { font-size: 13px; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); }
+    td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .pass { color: var(--ok); font-weight: 600; }
+    .fail { color: var(--no); font-weight: 600; }
+    .pill { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+    ol.steps { padding-left: 20px; }
+    ol.steps li { margin-bottom: 8px; }
+    code { background: var(--code); padding: 1px 5px; border-radius: 4px; font-size: 14px; }
+    pre { background: var(--code); padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 14px; }
+    ul.not { list-style: none; padding: 0; margin: 0; }
+    ul.not li { padding: 8px 0 8px 28px; position: relative; border-bottom: 1px dashed var(--line); }
+    ul.not li::before { content: "✕"; position: absolute; left: 4px; color: var(--no); font-weight: 700; }
+    footer { padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+    .theme { position: absolute; top: 16px; right: 16px; background: none; border: 1px solid var(--line); color: var(--fg); border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; font-size: 14px; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    @media (max-width: 860px) { .grid2, .grid3 { grid-template-columns: 1fr; } .shots { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .shots { grid-template-columns: 1fr; } header.hero { padding-top: 64px; } }
+  </style>
+</head>
+<body>
+  <button class="theme" id="theme" type="button" aria-label="Toggle colour theme">Theme</button>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="brand"><img src="img/icon128.png" alt=""><span>Rewind</span></div>
+      <h1>Find the moment a lecture explained it.</h1>
+      <p class="lede">A 13-week course leaves about 26 hours of recordings. Rewind is a Chrome/Edge extension that searches their captions for the explanation you remember — in your own words, in English, 中文 or both — and opens the video at that second. It runs on your own computer.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://github.com/rohanasrani3/AILT9019-Group-18-Rewind/releases">Download the extension</a>
+        <a class="btn" href="https://github.com/rohanasrani3/AILT9019-Group-18-Rewind">Source on GitHub</a>
+        <a class="btn" href="#results">Measured results</a>
+      </div>
+      <p class="small muted" style="margin-top:18px">AILT9019 AI Literacy II · HKU · Group 18 · v0.2.0</p>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap grid2">
+        <div>
+          <h2>The problem</h2>
+          <p>Panopto's keyword search works when you remember the lecturer's exact words. It misses two common cases:</p>
+          <ul>
+            <li>You remember the <em>idea</em> but not the wording — “why quicksort is fast on average” when the lecture said “expected running time”.</li>
+            <li>You think in Chinese while the lecture is in English — “主定理怎么用”.</li>
+          </ul>
+          <p>So students guess the week and scrub through hours of video. Rewind narrows that to up to three timestamped moments, with the caption excerpt so you can judge each one.</p>
+          <p class="muted small">Rewind is for revising, catching up and finding earlier explanations. It is not for lecturers' analytics, not a way around access controls, and not a homework solver.</p>
+        </div>
+        <figure>
+          <img src="img/search-english.png" alt="Rewind side panel showing three timestamped results for the question 'why is quicksort fast on average'" width="800" height="1520" loading="lazy">
+          <figcaption>A paraphrased question: the quicksort analysis in Lecture 4 is among the three moments returned.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>How it works</h2>
+        <p class="muted">Caption-based, local first. The optional AI step only rewrites the question; local search always runs too.</p>
+        <svg class="pipe" viewBox="0 0 1000 300" role="img" aria-labelledby="pipe-t pipe-d">
+          <title id="pipe-t">Rewind pipeline</title>
+          <desc id="pipe-d">Indexing: Panopto folder captions are split into 45-second windows, embedded locally and keyword indexed, stored on the device. Search: the question passes an assessment check, keyword and embedding rankings are fused, a threshold rejects weak matches, and up to three moments or Not found are shown.</desc>
+          <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs>
+          <text x="0" y="18" class="lbl">INDEXING · once per course</text>
+          <rect class="box" x="0" y="30" width="170" height="56" rx="8"/><text x="85" y="54" text-anchor="middle">Panopto folder</text><text x="85" y="72" text-anchor="middle" class="lbl">your own access</text>
+          <rect class="box" x="210" y="30" width="170" height="56" rx="8"/><text x="295" y="54" text-anchor="middle">Caption track</text><text x="295" y="72" text-anchor="middle" class="lbl">no audio/video stored</text>
+          <rect class="box" x="420" y="30" width="170" height="56" rx="8"/><text x="505" y="54" text-anchor="middle">45 s windows</text><text x="505" y="72" text-anchor="middle" class="lbl">+ topic boundaries</text>
+          <rect class="hl" x="630" y="30" width="170" height="56" rx="8"/><text x="715" y="54" text-anchor="middle">Local index</text><text x="715" y="72" text-anchor="middle" class="lbl">keywords + embeddings</text>
+          <path class="arrow" d="M170 58 H206"/><path class="arrow" d="M380 58 H416"/><path class="arrow" d="M590 58 H626"/>
+          <path class="arrow" d="M715 86 V150"/>
+          <text x="0" y="140" class="lbl">SEARCH · every question</text>
+          <rect class="box" x="0" y="152" width="170" height="56" rx="8"/><text x="85" y="176" text-anchor="middle">Question</text><text x="85" y="194" text-anchor="middle" class="lbl">English · 中文 · mixed</text>
+          <rect class="box" x="210" y="152" width="170" height="56" rx="8"/><text x="295" y="176" text-anchor="middle">Assessment check</text><text x="295" y="194" text-anchor="middle" class="lbl">refuse “solve Q2”</text>
+          <rect class="hl" x="420" y="152" width="170" height="56" rx="8"/><text x="505" y="176" text-anchor="middle">Hybrid retrieval</text><text x="505" y="194" text-anchor="middle" class="lbl">BM25 + vectors, RRF</text>
+          <rect class="box" x="630" y="152" width="170" height="56" rx="8"/><text x="715" y="176" text-anchor="middle">Threshold</text><text x="715" y="194" text-anchor="middle" class="lbl">tuned on practice set</text>
+          <rect class="box" x="840" y="130" width="160" height="46" rx="8"/><text x="920" y="158" text-anchor="middle">≤ 3 moments</text>
+          <rect class="box" x="840" y="190" width="160" height="46" rx="8"/><text x="920" y="218" text-anchor="middle">“Not found”</text>
+          <path class="arrow" d="M170 180 H206"/><path class="arrow" d="M380 180 H416"/><path class="arrow" d="M590 180 H626"/><path class="arrow" d="M800 172 L836 156"/><path class="arrow" d="M800 188 L836 210"/>
+          <rect class="box" x="420" y="250" width="170" height="44" rx="8" stroke-dasharray="5 4"/><text x="505" y="277" text-anchor="middle" class="lbl">optional AI rewrite (your key)</text>
+          <path class="arrow" d="M505 250 V212"/>
+        </svg>
+        <div class="grid3" style="margin-top:20px">
+          <div class="card"><h3>Local and multilingual</h3><p class="small">A ~120 MB multilingual embedding model runs in the browser (WebAssembly). Captions, vectors and the model stay on your device; search works offline.</p></div>
+          <div class="card"><h3>Honest answers</h3><p class="small">A practice-tuned threshold says “Not found” instead of guessing. Videos without captions are listed, and a folder with none says “index unavailable”.</p></div>
+          <div class="card"><h3>Built for revision</h3><p class="small">Requests to solve assignment, quiz or exam questions are declined; at most Rewind links to where the topic was taught.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>See it</h2>
+        <div class="shots">
+          <figure><img src="img/search-chinese.png" alt="Chinese question about red-black tree rotations finds Lecture 10 at 36:15" width="800" height="1520" loading="lazy"><figcaption>中文 question → English lecture</figcaption></figure>
+          <figure><img src="img/refusal.png" alt="An assessment request is declined with a notice" width="800" height="1520" loading="lazy"><figcaption>Homework request declined</figcaption></figure>
+          <figure><img src="img/timeline.png" alt="Concept timeline listing topic sections of Lecture 2 with timestamps" width="800" height="1520" loading="lazy"><figcaption>Concept timeline per lecture</figcaption></figure>
+          <figure><img src="img/keyword-only-dark.png" alt="Keyword-only mode banner when the model is not available, in dark theme" width="800" height="1520" loading="lazy"><figcaption>Visible keyword-only fallback</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="wrap">
+        <h2>Measured results</h2>
+        <p>Demo corpus: lectures 1–10 of MIT 6.046J <em>Introduction to Algorithms</em> (Fall 2005, CC BY-NC-SA) — 12.8 hours, 3,054 caption windows. A <strong>frozen 50-question test set</strong>, annotated independently by two team members and reconciled, never used for tuning. A hit is a returned start within 30 s before an agreed explanation interval, up to its end. Thresholds were tuned only on a separate 15-question practice set.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Measure (test set)</th><th>Rewind, local</th><th>Keyword baseline</th><th>Target</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>Exact wording, Hit@3</td><td class="num">11 / 12</td><td class="num">10 / 12</td><td>—</td><td></td></tr>
+              <tr><td>Paraphrased, Hit@3</td><td class="num">6 / 12</td><td class="num">6 / 12</td><td>≥ 10 / 12, +20 pts</td><td class="fail">missed</td></tr>
+              <tr><td>Chinese / mixed, Hit@3</td><td class="num">8 / 12</td><td class="num">0 / 12</td><td>≥ 10 / 12, +20 pts</td><td class="fail">+67 pts, but 8/12</td></tr>
+              <tr><td>All answerable, Hit@1 / Hit@3</td><td class="num">15 / 25 of 36</td><td class="num">8 / 16 of 36</td><td>—</td><td></td></tr>
+              <tr><td>Not covered → “Not found”</td><td class="num">3 / 8</td><td class="num">5 / 8</td><td>≥ 7 / 8</td><td class="fail">missed</td></tr>
+              <tr><td>Assessment requests refused</td><td class="num">6 / 6</td><td>—</td><td>6 / 6</td><td class="pass">met</td></tr>
+              <tr><td>Median local retrieval time</td><td class="num">7 ms (Node) · 12–28 ms (browser)</td><td>—</td><td>&lt; 2 s</td><td class="pass">met</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted">Local model: <code>paraphrase-multilingual-MiniLM-L12-v2</code> (chosen on the practice set). The proposal's <code>multilingual-e5-small</code> is selectable: it scores 7/8 on “Not found” but only 1/12 on Chinese/mixed questions — the two models trade off. Full per-question tables are in the repository's <code>eval/results/</code>.</p>
+        <h3 style="margin-top:28px">With the optional AI query rewriting <span class="pill">reported separately</span></h3>
+        <div class="table-wrap" id="llm-results">
+          <table>
+            <thead><tr><th>Measure (same frozen test set)</th><th>Rewind + AI rewriting</th><th>Rewind, local</th></tr></thead>
+            <tbody>
+<!-- LLM_ROWS -->
+              <tr><td colspan="3" class="muted">Not measured yet: this needs an API key. Run <code>npm run eval:llm</code> with <code>OPENROUTER_API_KEY</code> in <code>.env</code>.</td></tr>
+<!-- /LLM_ROWS -->
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted">API latency is reported on its own and is never counted in the local retrieval time. Rewriting is off by default and needs the student's own key.</p>
+        <h3 style="margin-top:28px">Optional local Whisper transcription</h3>
+        <p class="small">For licensed media only (not part of the extension). On the first 10 minutes of the licensed MIT lecture 2 video, <code>whisper-base.en</code> running locally reached a <strong>25.9% word error rate</strong> against MIT's published captions (which are lightly edited, so this overstates the true error), at 7.4× real time. Output is marked “Machine-transcribed; not verified”.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid2">
+        <div>
+          <h2>Install (no coding needed)</h2>
+          <ol class="steps">
+            <li>Download <code>rewind-v0.2.0.zip</code> from the <a href="https://github.com/rohanasrani3/AILT9019-Group-18-Rewind/releases">releases page</a> and unzip it.</li>
+            <li>Open <code>chrome://extensions</code> (or <code>edge://extensions</code>) and switch on <strong>Developer mode</strong>.</li>
+            <li>Click <strong>Load unpacked</strong> and choose the unzipped <code>rewind-v0.2.0</code> folder.</li>
+            <li>Click the Rewind icon. In <strong>Setup</strong>, click <em>Download &amp; check model</em> (once, ~120 MB).</li>
+            <li>Search the built-in demo, or open your Panopto course folder and click <em>Index this course</em> (ask your lecturer first).</li>
+          </ol>
+          <p class="small muted">No API key is needed for search or the demo.</p>
+        </div>
+        <figure>
+          <img src="img/install-extensions-page.png" alt="Chrome extensions page with Developer mode on and Rewind loaded" width="2200" height="1400" loading="lazy">
+          <figcaption>Rewind loaded unpacked with Developer mode on.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap grid2">
+        <div>
+          <h2>What Rewind does not do</h2>
+          <ul class="not">
+            <li>Solve assignment, quiz or exam questions.</li>
+            <li>Summarise whole lectures.</li>
+            <li>Bypass Panopto access controls or handle passwords.</li>
+            <li>Download or store audio/video (captions only).</li>
+            <li>Collect analytics or share captions and indexes.</li>
+            <li>Send anything to an AI service unless you turn that on, with your own key, after seeing exactly what would be sent.</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Known limitations</h2>
+          <ul>
+            <li><strong>HKU Panopto not validated live.</strong> The adapter is tested against simulated responses; a live test needs lecturer approval. It uses undocumented Panopto endpoints that could change.</li>
+            <li><strong>Targets missed</strong> for paraphrased questions, Chinese/mixed (8/12) and “Not found” with the default model.</li>
+            <li>Results are only as good as the captions; always check the moment in the video.</li>
+            <li>Topic-start snapping was switched off by practice-set tuning: it did not improve hits.</li>
+          </ul>
+          <p class="small"><a href="privacy.html">Privacy policy</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Demo content: MIT OpenCourseWare 6.046J Fall 2005, Prof. Charles Leiserson and Prof. Erik Demaine, <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. MIT OCW does not endorse Rewind. Models: Xenova/paraphrase-multilingual-MiniLM-L12-v2, Xenova/multilingual-e5-small, Xenova/whisper-base.en.</p>
+      <p>Built with the help of an AI coding assistant (Claude Code); AI assistance and its limits are disclosed in the final report.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement, btn = document.getElementById('theme');
+      try { var t = localStorage.getItem('rewind-theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+      btn.addEventListener('click', function () {
+        var dark = root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        var next = dark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('rewind-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

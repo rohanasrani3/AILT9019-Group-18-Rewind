@@ -24,10 +24,10 @@ export function isHit(result, intervals, tolerance = TOLERANCE) {
   return intervals.some((iv) => result.videoIndex === iv.v && result.start >= iv.start - tolerance && result.start <= iv.end);
 }
 
-export async function runQuestions(index, questions, { embedQuery, config, keywordOnly = false } = {}) {
+export async function runQuestions(index, questions, { embedQuery, config, keywordOnly = false, rewrite = null } = {}) {
   const records = [];
   for (const q of questions) {
-    const r = await search(index, q.query, { embedQuery, config, keywordOnly });
+    const r = await search(index, q.query, { embedQuery, config, keywordOnly, rewrite });
     const hits = r.results.map((x) => isHit(x, q.intervals));
     records.push({
       id: q.id,
@@ -36,7 +36,11 @@ export async function runQuestions(index, questions, { embedQuery, config, keywo
       query: q.query,
       status: r.status,
       keywordOnly: !!r.keywordOnly,
-      latencyMs: r.latencyMs,
+      // Local retrieval time excludes any external API wait, which is reported separately.
+      latencyMs: r.latencyMs - (r.llm?.ms ?? 0),
+      llmMs: r.llm ? r.llm.ms : null,
+      llmError: r.llm?.error ?? null,
+      rewrites: r.rewrites ?? [],
       hit1: !!hits[0],
       hit3: hits.some(Boolean),
       top: r.results.map((x) => ({ lecture: index.videos[x.videoIndex].n, time: x.time, start: x.start, strength: x.strength })),
@@ -67,6 +71,8 @@ export function summarize(records) {
     byType,
     answerable: { n: ans.length, hit1: ans.filter((r) => r.hit1).length, hit3: ans.filter((r) => r.hit3).length },
     medianLatencyMs: median(records.map((r) => r.latencyMs)),
+    medianLlmMs: median(records.filter((r) => r.llmMs != null).map((r) => r.llmMs)),
+    llmErrors: records.filter((r) => r.llmError).length,
     keywordOnlyQueries: records.filter((r) => r.keywordOnly).length,
   };
 }

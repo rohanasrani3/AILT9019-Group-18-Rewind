@@ -1,0 +1,14 @@
+{
+  "note": "Media that Rewind's Whisper tool may transcribe. Every entry needs a licence or written permission covering downloading and machine transcription. Anything else is refused unless --permission \"<who allowed it, when>\" is given, and that note is written into the output.",
+  "media": [
+    {
+      "id": "ocw-6046-f05-l02",
+      "title": "MIT 6.046J Fall 2005, Lecture 2: Asymptotic Notation; Recurrences; Substitution, Master Method",
+      "url": "https://archive.org/download/MIT6.046JF05MPEG4/ocw-6.046-12sep2005-220k.mp4",
+      "licence": "CC BY-NC-SA 4.0 (MIT OpenCourseWare)",
+      "licenceUrl": "https://ocw.mit.edu/courses/6-046j-introduction-to-algorithms-sma-5503-fall-2005/",
+      "referenceCaptions": "demo/raw/lecture-02.vtt",
+      "demoLecture": 2
+    }
+  ]
+}

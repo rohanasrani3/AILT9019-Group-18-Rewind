@@ -32,32 +32,40 @@ function excerpt(text, max = 320) {
   return cut.slice(0, cut.lastIndexOf(' ') > max * 0.6 ? cut.lastIndexOf(' ') : max) + ' …';
 }
 
-async function rank(index, query, { embedQuery, config, keywordOnly }) {
+// `queries` is the student's question first, then any optional rewrites. With a single query
+// this is exactly the original v0.1 ranking (RRF over one list keeps its order).
+async function rank(index, queries, { embedQuery, config, keywordOnly }) {
   const c = config;
-  const kw = searchBM25(index.bm25, query, c.topK);
-  let qv = null;
+  const kws = queries.map((q) => searchBM25(index.bm25, q, c.topK));
+  let qvs = null;
   let degraded = false;
   if (!keywordOnly && index.vectors && embedQuery) {
     try {
-      qv = await embedQuery(query);
+      qvs = [];
+      for (const q of queries) qvs.push(await embedQuery(q));
     } catch (err) {
+      qvs = null;
       degraded = true;
     }
   }
-  const useVectors = qv != null;
+  const useVectors = qvs != null;
+  const maxOver = (f) => Math.max(...queries.map(f));
 
   let ordered;
   if (useVectors) {
-    const vec = searchVectors(index.vectors, index.dim, qv, c.topK);
-    ordered = rrf([kw, vec], c.rrfK).map(({ doc, score }) => {
-      const cos = cosineAt(index.vectors, index.dim, qv, doc);
-      const cov = termCoverage(index.bm25, query, doc);
+    const lists = [];
+    queries.forEach((_, i) => lists.push(kws[i], searchVectors(index.vectors, index.dim, qvs[i], c.topK)));
+    ordered = rrf(lists, c.rrfK).map(({ doc, score }) => {
+      const cos = maxOver((_, i) => cosineAt(index.vectors, index.dim, qvs[i], doc));
+      const cov = maxOver((q) => termCoverage(index.bm25, q, doc));
       return { doc, fused: score, cos, cov };
     });
     ordered = ordered.filter((r) => r.cos >= c.tauV || (r.cov >= c.kwStrongCoverage && r.cos >= c.tauV - c.delta));
   } else {
-    ordered = kw
-      .map(({ doc, score }) => ({ doc, fused: score, bm25: score, cos: null, cov: termCoverage(index.bm25, query, doc) }))
+    const bm25 = new Map();
+    for (const list of kws) for (const { doc, score } of list) bm25.set(doc, Math.max(bm25.get(doc) ?? -Infinity, score));
+    ordered = rrf(kws, c.rrfK)
+      .map(({ doc, score }) => ({ doc, fused: score, bm25: bm25.get(doc), cos: null, cov: maxOver((q) => termCoverage(index.bm25, q, doc)) }))
       .filter((r) => r.cov >= c.kwMinCoverage && r.bm25 >= c.kwMinScore);
   }
 
@@ -90,7 +98,24 @@ async function rank(index, query, { embedQuery, config, keywordOnly }) {
   return { results, keywordOnly: !useVectors, degraded };
 }
 
-export async function search(index, query, { embedQuery, config = configFor(index?.model?.key ?? DEFAULT_MODEL), keywordOnly = false } = {}) {
+// Clean up optional rewrites: short, distinct, not a copy of the question.
+export function cleanRewrites(list, original) {
+  const seen = new Set([original.toLowerCase()]);
+  const out = [];
+  for (const raw of Array.isArray(list) ? list : []) {
+    const t = String(raw ?? '').replace(/\s+/g, ' ').trim().slice(0, 120);
+    if (!t || seen.has(t.toLowerCase())) continue;
+    seen.add(t.toLowerCase());
+    out.push(t);
+    if (out.length >= 2) break;
+  }
+  return out;
+}
+
+// `rewrite(q)` (optional) returns extra search phrasings from an external LLM. It is only called
+// after the assessment check passes, the original question is always searched too, and any
+// failure leaves the local result unchanged.
+export async function search(index, query, { embedQuery, config = configFor(index?.model?.key ?? DEFAULT_MODEL), keywordOnly = false, rewrite = null } = {}) {
   const t0 = now();
   const q = String(query ?? '').trim();
   const cov = coverage(index);
@@ -105,13 +130,24 @@ export async function search(index, query, { embedQuery, config = configFor(inde
     let related = [];
     let keywordOnlyFlag = keywordOnly || !index.vectors;
     if (tokenize(guard.topic).length >= 2) {
-      const r = await rank(index, guard.topic, { embedQuery, config, keywordOnly });
+      const r = await rank(index, [guard.topic], { embedQuery, config, keywordOnly });
       related = r.results;
       keywordOnlyFlag = r.keywordOnly;
     }
     return done({ status: 'refused', notice: guard.notice, reason: guard.reason, results: [], related, keywordOnly: keywordOnlyFlag });
   }
 
-  const r = await rank(index, q, { embedQuery, config, keywordOnly });
-  return done({ status: r.results.length ? 'results' : 'not_found', ...r });
+  let rewrites = [];
+  let llm = null;
+  if (rewrite) {
+    const t1 = now();
+    try {
+      rewrites = cleanRewrites(await rewrite(q), q);
+      llm = { used: rewrites.length > 0, ms: now() - t1, error: null };
+    } catch (err) {
+      llm = { used: false, ms: now() - t1, error: String(err?.message ?? err) };
+    }
+  }
+  const r = await rank(index, [q, ...rewrites], { embedQuery, config, keywordOnly });
+  return done({ status: r.results.length ? 'results' : 'not_found', ...r, rewrites, llm });
 }

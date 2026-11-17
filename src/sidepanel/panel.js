@@ -9,6 +9,10 @@ import { createEmbedClient } from '../embed/client.js';
 import { createStore } from '../storage/db.js';
 import { loadDemo, DEMO_COURSE_ID } from '../adapters/demo.js';
 import { parsePanoptoUrl, collectFolder, fetchSessionCaptions, PANOPTO_HOSTS, STATUS_TEXT } from '../adapters/panopto.js';
+import { exportIndex, importIndex, exportFileName } from '../core/exchange.js';
+import { buildTimeline } from '../core/timeline.js';
+import { createLLM, PROVIDERS, requestBody, rewritePayload, labelPayload } from '../llm/client.js';
+import { filterExcerpts } from '../llm/sensitive.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, props = {}, ...children) => {
@@ -24,7 +28,8 @@ const el = (tag, props = {}, ...children) => {
 };
 
 const store = createStore();
-const settings = { model: DEFAULT_MODEL, activeCourseId: null, modelInstalled: {} };
+const LLM_DEFAULTS = { provider: 'openrouter', model: PROVIDERS.openrouter.defaultModel, rewrite: false, labels: false };
+const settings = { model: DEFAULT_MODEL, activeCourseId: null, modelInstalled: {}, llm: { ...LLM_DEFAULTS }, externalOk: {} };
 let current = null; // { id, index }
 let indexing = null; // AbortController while indexing
 
@@ -32,10 +37,12 @@ const embed = createEmbedClient(chrome.runtime.getURL('worker.js'), { onState: r
 
 // ---------- settings ----------
 async function loadSettings() {
-  const s = await chrome.storage.local.get(['model', 'activeCourseId', 'modelInstalled']);
+  const s = await chrome.storage.local.get(['model', 'activeCourseId', 'modelInstalled', 'llm', 'externalOk']);
   if (s.model && MODELS[s.model]) settings.model = s.model;
   settings.activeCourseId = s.activeCourseId ?? null;
   settings.modelInstalled = s.modelInstalled ?? {};
+  settings.llm = { ...LLM_DEFAULTS, ...(s.llm ?? {}) };
+  settings.externalOk = s.externalOk ?? {};
 }
 const saveSettings = () => chrome.storage.local.set({ ...settings });
 
@@ -135,6 +142,7 @@ async function selectCourse(id) {
     const c = coverageText(index);
     $('course-label').textContent = `${index.title} · ${c}`;
     clearResults();
+    renderTimeline();
     await renderCourses();
   } catch (err) {
     $('course-label').textContent = `Could not open course: ${err.message}`;
@@ -156,7 +164,12 @@ async function renderCourses() {
     { class: `course${current?.id === DEMO_COURSE_ID ? ' active' : ''}` },
     el('div', { class: 'name', text: 'Demo: MIT 6.046J Introduction to Algorithms (Fall 2005)' }),
     el('div', { class: 'fine', text: '10 lectures · built in · CC BY-NC-SA 4.0 · ' }, el('a', { href: 'https://ocw.mit.edu/courses/6-046j-introduction-to-algorithms-sma-5503-fall-2005/', target: '_blank', rel: 'noopener', text: 'source' })),
-    el('div', { class: 'button-row' }, el('button', { class: 'secondary', onclick: () => selectAndSearch(DEMO_COURSE_ID), text: current?.id === DEMO_COURSE_ID ? 'Selected' : 'Search this course', disabled: current?.id === DEMO_COURSE_ID }))
+    el(
+      'div',
+      { class: 'button-row' },
+      el('button', { class: 'secondary', onclick: () => selectAndSearch(DEMO_COURSE_ID), text: current?.id === DEMO_COURSE_ID ? 'Selected' : 'Search this course', disabled: current?.id === DEMO_COURSE_ID }),
+      el('button', { class: 'secondary', onclick: () => exportCourse(DEMO_COURSE_ID), text: 'Export' })
+    )
   );
   list.append(demoItem);
   for (const m of courses) {
@@ -178,9 +191,25 @@ async function renderCourses() {
           'div',
           { class: 'button-row' },
           el('button', { class: 'secondary', onclick: () => selectAndSearch(m.courseId), text: active ? 'Selected' : 'Search this course', disabled: active }),
-          el('button', { class: 'secondary', onclick: () => reindex(m), text: 'Reindex' }),
+          m.source === 'panopto' ? el('button', { class: 'secondary', onclick: () => reindex(m), text: 'Reindex' }) : null,
+          el('button', { class: 'secondary', onclick: () => exportCourse(m.courseId), text: 'Export' }),
           del
-        )
+        ),
+        m.source === 'panopto'
+          ? el(
+              'label',
+              { class: 'check fine' },
+              el('input', {
+                type: 'checkbox',
+                checked: !!settings.externalOk[m.courseId],
+                onchange: async (e) => {
+                  settings.externalOk[m.courseId] = e.target.checked;
+                  await saveSettings();
+                },
+              }),
+              'External processing permitted for this course (allows AI labels on its excerpts; ask your lecturer first)'
+            )
+          : null
       )
     );
   }
@@ -211,6 +240,69 @@ function confirmThen(button, label, action) {
 }
 
 $('use-demo').addEventListener('click', () => selectAndSearch(DEMO_COURSE_ID));
+
+// ---------- export / import ----------
+async function exportCourse(id) {
+  try {
+    const index = id === current?.id ? current.index : id === DEMO_COURSE_ID ? await loadDemo(settings.model, chrome.runtime.getURL('demo/')) : await store.load(id);
+    const file = exportIndex(index);
+    const url = URL.createObjectURL(new Blob([JSON.stringify(file)], { type: 'application/json' }));
+    const a = el('a', { href: url, download: exportFileName(index) });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+    $('import-status').textContent =
+      index.source === 'panopto' ? `Exported “${index.title}”. It contains caption text from a restricted course: do not share it.` : `Exported “${index.title}”.`;
+  } catch (err) {
+    $('import-status').textContent = `Export failed: ${err.message}`;
+  }
+}
+
+$('import-file').addEventListener('change', async (e) => {
+  const f = e.target.files?.[0];
+  e.target.value = '';
+  if (!f) return;
+  try {
+    if (f.size > 200 * 2 ** 20) throw new Error('File is larger than 200 MB.');
+    const index = importIndex(JSON.parse(await f.text()));
+    if (index.courseId === DEMO_COURSE_ID) index.courseId = `import:${DEMO_COURSE_ID}`;
+    await store.save(index);
+    $('import-status').textContent = `Imported “${index.title}” (${coverageText(index)}).`;
+    await selectCourse(index.courseId);
+  } catch (err) {
+    $('import-status').textContent = `Import failed: ${err.message}`;
+  }
+});
+
+// ---------- concept timeline ----------
+let timeline = null;
+function renderTimeline() {
+  timeline = current ? buildTimeline(current.index) : [];
+  const sel = $('timeline-video');
+  sel.replaceChildren(...timeline.filter((t) => t.segments.length).map((t) => el('option', { value: String(t.videoIndex), text: t.title })));
+  renderTimelineList();
+}
+
+function renderTimelineList() {
+  const vi = Number($('timeline-video').value);
+  const t = timeline?.find((x) => x.videoIndex === vi);
+  $('timeline-list').replaceChildren(
+    ...(t?.segments ?? []).map((s) =>
+      el(
+        'li',
+        {},
+        el(
+          'a',
+          { href: s.url, target: '_blank', rel: 'noopener', 'aria-label': `${s.time}: ${s.terms.join(', ') || 'no distinctive terms'}` },
+          el('span', { class: 't', text: s.time }),
+          el('span', { class: s.terms.length ? '' : 'none', text: s.terms.join(', ') || 'no distinctive terms' })
+        )
+      )
+    )
+  );
+}
+$('timeline-video').addEventListener('change', renderTimelineList);
 
 // ---------- Panopto indexing ----------
 function pageFetchIn(tabId) {
@@ -364,12 +456,17 @@ $('search-form').addEventListener('submit', async (e) => {
     await waitForModel();
     const index = current.index;
     const modelMatches = index.vectors && index.model?.key === settings.model && embed.state.status === 'ready' && embed.state.model === settings.model;
+    const llm = await activeLLM();
+    const useRewrite = !!(llm && settings.llm.rewrite);
     const r = await search(index, q, {
       embedQuery: modelMatches ? (t) => embed.embedQuery(t) : null,
       keywordOnly: !modelMatches,
-      config: configFor(index.model?.key ?? settings.model),
+      config: configFor(index.model?.key ?? settings.model, { llm: useRewrite }),
+      rewrite: useRewrite ? async (question) => (await llm.rewriteQuery(question)).queries : null,
     });
-    render(r, modelMatches);
+    render(r, modelMatches, llm);
+    updatePreview(r);
+    if (llm && settings.llm.labels && r.status === 'results' && labelsAllowed(index)) addLabels(llm, r.results);
   } catch (err) {
     $('search-status').textContent = `Search failed: ${err.message}`;
   } finally {
@@ -377,8 +474,17 @@ $('search-form').addEventListener('submit', async (e) => {
   }
 });
 
-function render(r, modelMatches) {
+function render(r, modelMatches, llm) {
   const status = $('search-status');
+  document.querySelector('.llm-note')?.remove();
+  if (r.llm) {
+    const text = r.llm.error
+      ? `AI query help was unavailable (${r.llm.error}); these are local results only.`
+      : r.rewrites?.length
+        ? `Also searched for: ${r.rewrites.join(' · ')} (suggested by ${llm?.model ?? 'the AI model'}; your original question was searched too).`
+        : null;
+    if (text) status.after(el('p', { class: 'llm-note', role: 'note', text }));
+  }
   const banner = $('banner');
   if (r.keywordOnly && r.status !== 'empty' && r.status !== 'no_index') {
     banner.hidden = false;
@@ -421,9 +527,133 @@ function resultItem(x, i) {
       el('span', { class: `strength${x.strength === 'Strong match' ? ' strong' : ''}`, text: x.strength }),
       i === 0 ? ' · best match' : ''
     ),
+    x.machineTranscribed ? el('p', {}, el('span', { class: 'badge', text: 'Machine-transcribed; not verified' })) : null,
+    el('p', { class: 'ai-label', hidden: true }),
     el('p', { class: 'excerpt', text: `“${x.excerpt}”` }),
     link
   );
+}
+
+// ---------- optional AI query help ----------
+// The key lives in chrome.storage.session: not on disk, cleared when the browser closes, and not
+// readable by web pages. Requests go from the extension, never from the Panopto page.
+async function getKey() {
+  return (await chrome.storage.session.get('llmKey')).llmKey ?? null;
+}
+
+async function activeLLM() {
+  const { provider, model, rewrite, labels } = settings.llm;
+  if (!rewrite && !labels) return null;
+  const key = await getKey();
+  if (!key) return null;
+  if (!(await chrome.permissions.contains({ origins: [PROVIDERS[provider].hostPermission] }))) return null;
+  return createLLM({ provider, model, apiKey: key });
+}
+
+function labelsAllowed(index) {
+  return index.source !== 'panopto' || !!settings.externalOk[index.courseId];
+}
+
+async function addLabels(llm, results) {
+  const { send } = filterExcerpts(results.map((x) => x.excerpt));
+  if (!send.length) return;
+  try {
+    const { labels } = await llm.labelExcerpts(send.map((s) => s.text));
+    const nodes = document.querySelectorAll('#results li.result .ai-label');
+    send.forEach((s, k) => {
+      if (nodes[s.i] && labels[k]) {
+        nodes[s.i].textContent = labels[k];
+        nodes[s.i].hidden = false;
+      }
+    });
+  } catch {
+    // Labels are decoration only; the local results are already shown.
+  }
+}
+
+// Shows exactly what would be sent for the last question (minus the key).
+function updatePreview(r) {
+  const { provider, model } = settings.llm;
+  const m = model || PROVIDERS[provider].defaultModel;
+  const parts = [`POST ${PROVIDERS[provider].url}`, 'Authorization: Bearer <your key>', ''];
+  if (r.status === 'refused') parts.push('Nothing is sent for assessment requests.');
+  else {
+    parts.push(`1) Query rewriting${settings.llm.rewrite ? '' : ' (currently off)'}`, JSON.stringify(requestBody(provider, m, rewritePayload(r.query)), null, 2), '');
+    const { send, withheld } = filterExcerpts((r.results ?? []).map((x) => x.excerpt));
+    const allowed = current && labelsAllowed(current.index);
+    parts.push(`2) Result labels${!allowed ? ' (blocked for this course: external processing not permitted)' : settings.llm.labels ? '' : ' (currently off)'}`);
+    parts.push(send.length ? JSON.stringify(requestBody(provider, m, labelPayload(send.map((s) => s.text))), null, 2) : '(no excerpts)');
+    if (withheld.length) parts.push(`(${withheld.length} excerpt(s) withheld because they look personal)`);
+  }
+  $('llm-preview').textContent = parts.join('\n');
+}
+
+function renderLLMSettings() {
+  const { provider, model, rewrite, labels } = settings.llm;
+  $('llm-provider').value = provider;
+  $('llm-model').value = model;
+  $('llm-key-link').href = PROVIDERS[provider].keyPage;
+  $('llm-rewrite').checked = rewrite;
+  $('llm-labels').checked = labels;
+  getKey().then((k) => {
+    $('llm-key').placeholder = k ? 'Key saved for this browser session' : 'sk-…';
+  });
+}
+
+$('llm-provider').addEventListener('change', async (e) => {
+  settings.llm.provider = e.target.value;
+  settings.llm.model = PROVIDERS[e.target.value].defaultModel;
+  await saveSettings();
+  renderLLMSettings();
+});
+
+$('llm-model').addEventListener('change', async (e) => {
+  settings.llm.model = e.target.value.trim() || PROVIDERS[settings.llm.provider].defaultModel;
+  await saveSettings();
+});
+
+$('llm-save').addEventListener('click', () => {
+  const p = PROVIDERS[settings.llm.provider];
+  const typed = $('llm-key').value.trim();
+  // permissions.request must run directly in the click handler.
+  chrome.permissions.request({ origins: [p.hostPermission] }).then(async (ok) => {
+    if (!ok) return void ($('llm-status').textContent = `Permission to contact ${p.label} was not granted; nothing was sent.`);
+    if (typed) await chrome.storage.session.set({ llmKey: typed });
+    $('llm-key').value = '';
+    const key = await getKey();
+    if (!key) return void ($('llm-status').textContent = 'Enter a key first.');
+    $('llm-status').textContent = `Testing ${p.label}…`;
+    try {
+      const r = await createLLM({ provider: settings.llm.provider, model: settings.llm.model, apiKey: key }).testConnection();
+      $('llm-status').textContent = `Connected to ${p.label} (${settings.llm.model}) in ${r.ms} ms. Turn on the options below to use it.`;
+    } catch (err) {
+      $('llm-status').textContent = `Connection test failed: ${err.message}. Local search is unaffected.`;
+    }
+    renderLLMSettings();
+  });
+});
+
+$('llm-remove').addEventListener('click', async () => {
+  await chrome.storage.session.remove('llmKey');
+  settings.llm.rewrite = settings.llm.labels = false;
+  await saveSettings();
+  $('llm-status').textContent = 'Key removed. AI query help is off.';
+  renderLLMSettings();
+});
+
+for (const [id, field] of [
+  ['llm-rewrite', 'rewrite'],
+  ['llm-labels', 'labels'],
+]) {
+  $(id).addEventListener('change', async (e) => {
+    if (e.target.checked && !(await getKey())) {
+      e.target.checked = false;
+      $('llm-status').textContent = 'Save an API key first.';
+      return;
+    }
+    settings.llm[field] = e.target.checked;
+    await saveSettings();
+  });
 }
 
 // Check access before opening a Panopto result, so revoked recordings give a clear message.
@@ -477,10 +707,14 @@ $('delete-all').addEventListener('click', (e) =>
   confirmThen(e.currentTarget, 'Confirm: delete everything', async () => {
     await store.clearAll();
     await chrome.storage.local.clear();
+    await chrome.storage.session.clear();
     settings.activeCourseId = null;
+    settings.llm = { ...LLM_DEFAULTS };
+    settings.externalOk = {};
+    renderLLMSettings();
     await saveSettings();
     const c = await store.counts();
-    $('delete-status').textContent = `Deleted all indexed courses, captions, vectors and settings (remaining records: ${c.meta + c.courses + c.vectors}). The downloaded model was kept; remove it above if you want.`;
+    $('delete-status').textContent = `Deleted all indexed courses, captions, vectors and settings (remaining records: ${c.meta + c.courses + c.vectors}), and removed any saved API key. The downloaded model was kept; remove it above if you want.`;
     await selectCourse(DEMO_COURSE_ID);
     renderStorage();
   })
@@ -495,6 +729,7 @@ async function init() {
   }
   sel.value = settings.model;
   renderModelState(embed.state);
+  renderLLMSettings();
   startModelIfInstalled();
   const known = settings.activeCourseId && (settings.activeCourseId === DEMO_COURSE_ID || (await store.list()).some((c) => c.courseId === settings.activeCourseId));
   await selectCourse(known ? settings.activeCourseId : DEMO_COURSE_ID);

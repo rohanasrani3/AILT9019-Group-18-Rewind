@@ -1,0 +1,15 @@
+{
+  "hypothesis": "ocw-6046-f05-l02-0-600.vtt",
+  "reference": "lecture-02.vtt",
+  "span": {
+    "from": 0,
+    "to": 600
+  },
+  "wer": 0.259,
+  "substitutions": 122,
+  "deletions": 94,
+  "insertions": 114,
+  "refWords": 1274,
+  "hypWords": 1294,
+  "note": "Reference = MIT OCW published captions (themselves human-edited, not a verbatim transcript), so WER overstates true error somewhat."
+}

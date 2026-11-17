@@ -142,3 +142,84 @@ test('absent model cache and no network: keyword-only search with visible notice
   await expect(page.locator('#results li.result').first()).toBeVisible();
   await context.close();
 });
+
+test('v0.2: concept timeline, export → import, consent preview, AI query help with fallback', async () => {
+  const { context, page } = await launch();
+  await page.click('#tab-setup');
+  await page.click('#download-model');
+  await expect(page.locator('#model-status')).toContainText('Ready', { timeout: 220000 });
+
+  // Concept timeline for a demo lecture.
+  await page.click('#tab-search');
+  await page.click('#timeline summary');
+  await page.selectOption('#timeline-video', { index: 1 });
+  const segs = page.locator('#timeline-list li a');
+  expect(await segs.count()).toBeGreaterThan(5);
+  await expect(segs.first()).toHaveAttribute('href', /youtube\.com\/watch\?v=[\w-]+&t=\d+s$/);
+
+  // Export the demo index, then import it back as a stored course.
+  await page.click('#tab-courses');
+  const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#course-list li').first().getByRole('button', { name: 'Export' }).click()]);
+  const file = path.join(os.tmpdir(), `rewind-export-${Date.now()}.rewind.json`);
+  await download.saveAs(file);
+  await page.setInputFiles('#import-file', file);
+  await expect(page.locator('#import-status')).toContainText('Imported', { timeout: 30000 });
+  await expect(page.locator('#course-list li')).toHaveCount(2);
+  await page.click('#tab-search');
+  expect(await ask(page, 'universal hashing')).toMatch(/moments? found/);
+
+  // AI query help, with OpenRouter mocked: a fake key in session storage, and the host
+  // permission check stubbed (headless Chromium cannot click the permission prompt).
+  let mode = 'ok';
+  const sent = [];
+  await context.route('https://openrouter.ai/**', async (route) => {
+    const body = route.request().postDataJSON();
+    sent.push(body);
+    if (mode === 'fail') return route.fulfill({ status: 500, body: '{}', headers: { 'access-control-allow-origin': '*' } });
+    const schema = body.response_format.json_schema.name;
+    const n = schema === 'excerpt_labels' ? JSON.parse(body.messages[1].content).excerpts.length : 0;
+    const content = schema === 'search_queries' ? { queries: ['randomized quicksort expected running time'] } : { labels: Array.from({ length: n }, (_, i) => `Mock label ${i + 1}`) };
+    await route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ choices: [{ message: { content: JSON.stringify(content) } }] }) });
+  });
+  await page.evaluate(async () => {
+    await chrome.storage.session.set({ llmKey: 'sk-test-not-real' });
+    const { llm } = await chrome.storage.local.get('llm');
+    await chrome.storage.local.set({ llm: { ...(llm ?? {}), provider: 'openrouter', model: 'openai/gpt-4o-mini', rewrite: true, labels: true } });
+  });
+  await page.reload();
+  await expect(page.locator('#course-label')).toContainText(/MIT 6\.046J/, { timeout: 30000 });
+  await page.evaluate(() => {
+    chrome.permissions.contains = async () => true;
+  });
+  await page.click('#tab-setup');
+  await page.click('#download-model');
+  await expect(page.locator('#model-status')).toContainText('Ready', { timeout: 60000 });
+  await page.click('#tab-search');
+
+  let status = await ask(page, '为什么这个排序算法平均很快');
+  expect(status).toMatch(/moments? found/);
+  await expect(page.locator('.llm-note')).toContainText('randomized quicksort expected running time');
+  await expect(page.locator('#results .ai-label').first()).toHaveText(/Mock label/, { timeout: 10000 });
+  expect(JSON.parse(sent[0].messages[1].content)).toEqual({ question: '为什么这个排序算法平均很快' });
+  // The consent preview shows the exact request body, including the question text.
+  await expect(page.locator('#llm-preview')).toContainText('为什么这个排序算法平均很快');
+  await expect(page.locator('#llm-preview')).toContainText('Bearer <your key>');
+
+  // Assessment requests never reach the API.
+  const before = sent.length;
+  await ask(page, 'solve question 2 of assignment 1');
+  expect(sent.length).toBe(before);
+
+  // API failure: local results are still shown, with a note.
+  mode = 'fail';
+  status = await ask(page, 'universal hashing');
+  expect(status).toMatch(/moments? found/);
+  await expect(page.locator('.llm-note')).toContainText('unavailable');
+
+  // Clean up the persistent test profile.
+  await page.click('#tab-setup');
+  await page.click('#delete-all');
+  await page.click('#delete-all');
+  await expect(page.locator('#delete-status')).toContainText('remaining records: 0');
+  await context.close();
+});
