@@ -27,7 +27,7 @@ export const MODEL_DEFAULTS = {
 };
 
 // --- TUNED (written by eval/tune.mjs) ---
-// Tuned on eval/questions.practice.json, 2026-10-22.
+// Tuned on eval/questions.practice.json, 2026-11-17.
 export const TUNED = {
   "e5-small": {
     "tauV": 0.865,
@@ -46,6 +46,20 @@ export const TUNED = {
     "tauStrong": 0.52,
     "kwMinCoverage": 0.4,
     "kwMinScore": 0
+  },
+  "e5-small+llm": {
+    "tauV": 0.86,
+    "delta": 0,
+    "rrfK": 20,
+    "maxSnap": 0,
+    "tauStrong": 0.9
+  },
+  "minilm-l12+llm": {
+    "tauV": 0.6,
+    "delta": 0,
+    "rrfK": 20,
+    "maxSnap": 0,
+    "tauStrong": 0.72
   }
 };
 // --- END TUNED ---

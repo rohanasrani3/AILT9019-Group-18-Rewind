@@ -186,7 +186,15 @@
             <thead><tr><th>Measure (same frozen test set)</th><th>Rewind + AI rewriting</th><th>Rewind, local</th></tr></thead>
             <tbody>
 <!-- LLM_ROWS -->
-              <tr><td colspan="3" class="muted">Not measured yet: this needs an API key. Run <code>npm run eval:llm</code> with <code>OPENROUTER_API_KEY</code> in <code>.env</code>.</td></tr>
+              <tr><td>Exact wording, Hit@3</td><td class="num">11 / 12</td><td class="num">11 / 12</td></tr>
+              <tr><td>Paraphrased, Hit@3</td><td class="num">6 / 12</td><td class="num">6 / 12</td></tr>
+              <tr><td>Chinese / mixed, Hit@3</td><td class="num">8 / 12</td><td class="num">8 / 12</td></tr>
+              <tr><td>All answerable, Hit@1 / Hit@3</td><td class="num">19 / 25 of 36</td><td class="num">15 / 25 of 36</td></tr>
+              <tr><td>Not covered → “Not found”</td><td class="num">5 / 8</td><td class="num">3 / 8</td></tr>
+              <tr><td>Assessment requests refused (never sent to the API)</td><td class="num">6 / 6</td><td class="num">6 / 6</td></tr>
+              <tr><td>Median local retrieval time (Node)</td><td class="num">29 ms</td><td class="num">7 ms</td></tr>
+              <tr><td>Median API latency (separate, not in the local target)</td><td class="num">1105 ms</td><td class="num">—</td></tr>
+              <tr><td colspan="3" class="small muted">Rewriting model openrouter: openai/gpt-4o-mini; settings tuned on the practice set only; 0 API error(s) on the test set (those questions fell back to local search).</td></tr>
 <!-- /LLM_ROWS -->
             </tbody>
           </table>

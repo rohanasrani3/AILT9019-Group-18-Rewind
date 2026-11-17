@@ -167,7 +167,18 @@ Honest reading: refusals (with no false refusals) and latency are met by a wide 
 ### With optional AI query rewriting (reported separately)
 
 <!-- LLM_RESULTS -->
-Not measured yet: this needs an API key. Put `OPENROUTER_API_KEY=...` in `rewind/.env` (git-ignored) and run `npm run eval:llm`. That tunes the LLM-mode thresholds on the **practice set only**, runs the frozen test set, caches every API response in `eval/results/llm-cache-*.json` (reproducible, not re-billed), and writes the results here and on the project page. API latency is reported separately from local latency.
+| Frozen test set | + AI rewriting | Local only |
+|---|---|---|
+| Exact wording, Hit@3 | 11 / 12 | 11 / 12 |
+| Paraphrased, Hit@3 | 6 / 12 | 6 / 12 |
+| Chinese / mixed, Hit@3 | 8 / 12 | 8 / 12 |
+| All answerable, Hit@1 / Hit@3 | 19 / 25 of 36 | 15 / 25 of 36 |
+| Not covered → “Not found” | 5 / 8 | 3 / 8 |
+| Assessment requests refused (never sent to the API) | 6 / 6 | 6 / 6 |
+| Median local retrieval time (Node) | 29 ms | 7 ms |
+| Median API latency (separate, not in the local target) | 1105 ms | — |
+
+Rewriting model openrouter: openai/gpt-4o-mini; settings tuned on the practice set only; 0 API error(s) on the test set (those questions fell back to local search).
 <!-- /LLM_RESULTS -->
 
 ### Optional local Whisper transcription (not an MVP gate)

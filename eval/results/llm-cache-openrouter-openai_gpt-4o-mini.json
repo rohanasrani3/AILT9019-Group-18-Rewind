@@ -1,0 +1,458 @@
+{
+  "direct access table": {
+    "queries": [
+      "direct access table",
+      "data structure direct access"
+    ],
+    "ms": 1492,
+    "at": "2026-11-17T09:56:35.964Z"
+  },
+  "Jensen's inequality": {
+    "queries": [
+      "Jensen's inequality",
+      "inequality in convex functions"
+    ],
+    "ms": 1146,
+    "at": "2026-11-17T09:56:37.142Z"
+  },
+  "perfect hashing": {
+    "queries": [
+      "perfect hashing technique",
+      "perfect hash function"
+    ],
+    "ms": 1081,
+    "at": "2026-11-17T09:56:38.246Z"
+  },
+  "a sort that keeps equal keys in their original order": {
+    "queries": [
+      "stable sorting algorithm",
+      "maintaining order of equal keys"
+    ],
+    "ms": 1444,
+    "at": "2026-11-17T09:56:39.722Z"
+  },
+  "the n log n algorithm eventually beats the n squared one for big inputs": {
+    "queries": [
+      "n log n algorithm vs n squared",
+      "performance comparison of n log n and n squared"
+    ],
+    "ms": 1109,
+    "at": "2026-11-17T09:56:40.869Z"
+  },
+  "counting the dark nodes on every path from a node down to a leaf": {
+    "queries": [
+      "counting dark nodes",
+      "dark nodes on paths to leaves"
+    ],
+    "ms": 942,
+    "at": "2026-11-17T09:56:41.850Z"
+  },
+  "双重哈希": {
+    "queries": [
+      "double hashing",
+      "double hash technique"
+    ],
+    "ms": 949,
+    "at": "2026-11-17T09:56:42.835Z"
+  },
+  "二分查找的分治思想": {
+    "queries": [
+      "divide and conquer in binary search",
+      "binary search divide and conquer strategy"
+    ],
+    "ms": 1150,
+    "at": "2026-11-17T09:56:44.017Z"
+  },
+  "big O 的定义是什么": {
+    "queries": [
+      "definition of big O",
+      "big O notation explanation"
+    ],
+    "ms": 912,
+    "at": "2026-11-17T09:56:44.964Z"
+  },
+  "斐波那契数列怎么快速计算": {
+    "queries": [
+      "Fibonacci sequence fast calculation",
+      "efficient Fibonacci computation"
+    ],
+    "ms": 1031,
+    "at": "2026-11-17T09:56:46.029Z"
+  },
+  "Bellman-Ford and negative weight cycles": {
+    "queries": [
+      "Bellman-Ford algorithm",
+      "negative weight cycles"
+    ],
+    "ms": 2416,
+    "at": "2026-11-17T09:56:48.482Z"
+  },
+  "how vaccines train the immune system": {
+    "queries": [
+      "vaccines immune system training",
+      "how vaccines activate immunity"
+    ],
+    "ms": 1202,
+    "at": "2026-11-17T09:56:49.718Z"
+  },
+  "量子计算的基本原理": {
+    "queries": [
+      "fundamental principles of quantum computing",
+      "quantum computing basics"
+    ],
+    "ms": 1071,
+    "at": "2026-11-17T09:56:50.826Z"
+  },
+  "master theorem": {
+    "queries": [
+      "Master Theorem",
+      "Analysis of algorithms using Master Theorem"
+    ],
+    "ms": 1603,
+    "at": "2026-11-17T09:57:22.158Z"
+  },
+  "insertion sort": {
+    "queries": [
+      "insertion sort algorithm",
+      "insertion sort example"
+    ],
+    "ms": 1944,
+    "at": "2026-11-17T09:57:24.124Z"
+  },
+  "substitution method": {
+    "queries": [
+      "substitution method",
+      "solving equations substitution"
+    ],
+    "ms": 1070,
+    "at": "2026-11-17T09:57:25.236Z"
+  },
+  "Strassen's algorithm": {
+    "queries": [
+      "Strassen's matrix multiplication algorithm",
+      "Strassen algorithm explanation"
+    ],
+    "ms": 998,
+    "at": "2026-11-17T09:57:26.265Z"
+  },
+  "randomized quicksort": {
+    "queries": [
+      "randomized quicksort algorithm",
+      "quicksort performance analysis"
+    ],
+    "ms": 1428,
+    "at": "2026-11-17T09:57:27.729Z"
+  },
+  "decision tree model": {
+    "queries": [
+      "decision tree algorithm",
+      "decision tree analysis"
+    ],
+    "ms": 954,
+    "at": "2026-11-17T09:57:28.709Z"
+  },
+  "radix sort": {
+    "queries": [
+      "radix sort algorithm",
+      "radix sort explanation"
+    ],
+    "ms": 899,
+    "at": "2026-11-17T09:57:29.638Z"
+  },
+  "universal hashing": {
+    "queries": [
+      "universal hashing",
+      "hash function properties"
+    ],
+    "ms": 957,
+    "at": "2026-11-17T09:57:30.633Z"
+  },
+  "red-black tree properties": {
+    "queries": [
+      "red-black tree properties",
+      "properties of red-black trees"
+    ],
+    "ms": 1660,
+    "at": "2026-11-17T09:57:32.316Z"
+  },
+  "open addressing": {
+    "queries": [
+      "open addressing technique",
+      "open addressing method"
+    ],
+    "ms": 1241,
+    "at": "2026-11-17T09:57:33.578Z"
+  },
+  "worst-case linear-time order statistics": {
+    "queries": [
+      "worst-case linear time",
+      "order statistics analysis"
+    ],
+    "ms": 1032,
+    "at": "2026-11-17T09:57:34.642Z"
+  },
+  "big omega notation": {
+    "queries": [
+      "big omega notation",
+      "asymptotic analysis big omega"
+    ],
+    "ms": 1175,
+    "at": "2026-11-17T09:57:35.853Z"
+  },
+  "shortcut for divide-and-conquer recurrences": {
+    "queries": [
+      "divide-and-conquer recurrences",
+      "recurrence relations shortcuts"
+    ],
+    "ms": 1028,
+    "at": "2026-11-17T09:57:36.903Z"
+  },
+  "why quicksort is fast on average": {
+    "queries": [
+      "average case performance of quicksort",
+      "quicksort efficiency analysis"
+    ],
+    "ms": 1110,
+    "at": "2026-11-17T09:57:38.050Z"
+  },
+  "why can't you sort faster than n log n by comparing elements": {
+    "queries": [
+      "sorting algorithms comparison",
+      "time complexity n log n"
+    ],
+    "ms": 952,
+    "at": "2026-11-17T09:57:39.032Z"
+  },
+  "sorting integers in linear time by counting how often each value appears": {
+    "queries": [
+      "linear time sorting",
+      "counting sort algorithm"
+    ],
+    "ms": 1264,
+    "at": "2026-11-17T09:57:40.334Z"
+  },
+  "keeping a linked list in a slot when two keys land in the same place": {
+    "queries": [
+      "linked list collision resolution",
+      "hash table chaining method"
+    ],
+    "ms": 958,
+    "at": "2026-11-17T09:57:41.327Z"
+  },
+  "choosing the hash function at random so an adversary cannot pick bad keys": {
+    "queries": [
+      "random hash function selection",
+      "adversary resistant key selection"
+    ],
+    "ms": 1104,
+    "at": "2026-11-17T09:57:42.472Z"
+  },
+  "computing x to the power n with fewer multiplications": {
+    "queries": [
+      "exponentiation by squaring",
+      "efficient power computation"
+    ],
+    "ms": 1111,
+    "at": "2026-11-17T09:57:43.620Z"
+  },
+  "laying out a complete binary tree on a chip using little area": {
+    "queries": [
+      "complete binary tree layout",
+      "chip area optimization for binary trees"
+    ],
+    "ms": 943,
+    "at": "2026-11-17T09:57:44.604Z"
+  },
+  "finding the k-th smallest element quickly with a random pivot": {
+    "queries": [
+      "k-th smallest element",
+      "random pivot selection"
+    ],
+    "ms": 941,
+    "at": "2026-11-17T09:57:45.584Z"
+  },
+  "restructuring a search tree locally without breaking the ordering": {
+    "queries": [
+      "local restructuring of search tree",
+      "maintaining order in search tree"
+    ],
+    "ms": 1287,
+    "at": "2026-11-17T09:57:46.901Z"
+  },
+  "drawing out the cost at every level of the recursion and adding it up": {
+    "queries": [
+      "cost analysis of recursion",
+      "total cost at each recursion level"
+    ],
+    "ms": 1105,
+    "at": "2026-11-17T09:57:48.043Z"
+  },
+  "why inserting keys into a search tree in random order is like quicksort": {
+    "queries": [
+      "inserting keys into search tree",
+      "random order quicksort comparison"
+    ],
+    "ms": 1440,
+    "at": "2026-11-17T09:57:49.518Z"
+  },
+  "主定理怎么用": {
+    "queries": [
+      "Master theorem application",
+      "Using the master theorem"
+    ],
+    "ms": 1075,
+    "at": "2026-11-17T09:57:50.627Z"
+  },
+  "快速排序的期望运行时间": {
+    "queries": [
+      "expected runtime of quicksort",
+      "quicksort average case analysis"
+    ],
+    "ms": 1151,
+    "at": "2026-11-17T09:57:51.811Z"
+  },
+  "比较排序的下界是多少": {
+    "queries": [
+      "lower bound of comparison sorting",
+      "comparison sorting lower bound"
+    ],
+    "ms": 950,
+    "at": "2026-11-17T09:57:52.794Z"
+  },
+  "计数排序是怎么工作的": {
+    "queries": [
+      "How does counting sort work?",
+      "Counting sort algorithm explanation"
+    ],
+    "ms": 1116,
+    "at": "2026-11-17T09:57:53.941Z"
+  },
+  "红黑树的旋转操作": {
+    "queries": [
+      "Red-black tree rotation operation",
+      "Rotation operations in red-black trees"
+    ],
+    "ms": 955,
+    "at": "2026-11-17T09:57:54.923Z"
+  },
+  "哈希冲突用链表解决": {
+    "queries": [
+      "hash collision resolution",
+      "linked list for hash collisions"
+    ],
+    "ms": 1116,
+    "at": "2026-11-17T09:57:56.073Z"
+  },
+  "如何在线性时间内找到中位数": {
+    "queries": [
+      "find median in linear time",
+      "median finding algorithm"
+    ],
+    "ms": 951,
+    "at": "2026-11-17T09:57:57.053Z"
+  },
+  "随机二叉搜索树的期望高度": {
+    "queries": [
+      "expected height of random binary search tree",
+      "average height of binary search tree"
+    ],
+    "ms": 954,
+    "at": "2026-11-17T09:57:58.038Z"
+  },
+  "master theorem 的三种情况": {
+    "queries": [
+      "three cases of master theorem",
+      "master theorem scenarios"
+    ],
+    "ms": 1292,
+    "at": "2026-11-17T09:57:59.360Z"
+  },
+  "quicksort 的 partition 怎么做": {
+    "queries": [
+      "quicksort partition method",
+      "how to perform quicksort partition"
+    ],
+    "ms": 1104,
+    "at": "2026-11-17T09:58:00.495Z"
+  },
+  "universal hashing 是什么意思": {
+    "queries": [
+      "What is universal hashing?",
+      "Definition of universal hashing"
+    ],
+    "ms": 1280,
+    "at": "2026-11-17T09:58:01.805Z"
+  },
+  "Strassen 算法为什么只需要七次乘法": {
+    "queries": [
+      "Strassen algorithm multiplication count",
+      "Why Strassen requires seven multiplications"
+    ],
+    "ms": 1116,
+    "at": "2026-11-17T09:58:02.951Z"
+  },
+  "Dijkstra's shortest path algorithm": {
+    "queries": [
+      "Dijkstra's algorithm",
+      "shortest path algorithm"
+    ],
+    "ms": 910,
+    "at": "2026-11-17T09:58:03.896Z"
+  },
+  "dynamic programming for longest common subsequence": {
+    "queries": [
+      "dynamic programming",
+      "longest common subsequence"
+    ],
+    "ms": 832,
+    "at": "2026-11-17T09:58:04.756Z"
+  },
+  "how photosynthesis works in plants": {
+    "queries": [
+      "photosynthesis process in plants",
+      "mechanism of photosynthesis"
+    ],
+    "ms": 1286,
+    "at": "2026-11-17T09:58:06.075Z"
+  },
+  "causes of the French Revolution": {
+    "queries": [
+      "causes of French Revolution",
+      "factors leading to French Revolution"
+    ],
+    "ms": 1113,
+    "at": "2026-11-17T09:58:07.220Z"
+  },
+  "如何训练神经网络": {
+    "queries": [
+      "how to train neural networks",
+      "neural network training techniques"
+    ],
+    "ms": 1105,
+    "at": "2026-11-17T09:58:08.358Z"
+  },
+  "greedy algorithm for minimum spanning trees": {
+    "queries": [
+      "greedy algorithm minimum spanning tree",
+      "minimum spanning tree algorithm"
+    ],
+    "ms": 1123,
+    "at": "2026-11-17T09:58:09.511Z"
+  },
+  "TCP congestion control": {
+    "queries": [
+      "TCP congestion control mechanisms",
+      "TCP congestion avoidance techniques"
+    ],
+    "ms": 960,
+    "at": "2026-11-17T09:58:10.500Z"
+  },
+  "供求关系如何决定价格": {
+    "queries": [
+      "Supply and demand determine price",
+      "Price determination by supply and demand"
+    ],
+    "ms": 1071,
+    "at": "2026-11-17T09:58:11.602Z"
+  }
+}
