@@ -26,6 +26,7 @@ unchanged: `npm run eval:regress` reproduces the official frozen-test-set record
 - **Chrome Web Store pack** (`store/`): listing, permission justifications, data-use answers,
   privacy policy, screenshots and promo tile.
 - **Project page** (`docs/`, GitHub Pages-ready) and README screenshots.
+- **Panopto adapter tested on HKU's live Panopto** by the team (v0.1 had simulated tests only).
 - **Evaluation:**
   - official results on the double-annotated, frozen test set
   - `eval:regress` (local search must not drift)

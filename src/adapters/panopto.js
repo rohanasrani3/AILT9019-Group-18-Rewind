@@ -5,7 +5,7 @@
 // Rewind never sees, asks for or stores passwords.
 //
 // These Panopto endpoints are not a documented public API. They are used by Panopto's own web
-// pages, but HKU's deployment has not been validated without lecturer approval (see README).
+// pages. The team has tested them on HKU's live Panopto; they can change without notice (see README).
 //   List a folder:  POST /Panopto/Services/Data.svc/GetSessions
 //   Captions:       GET  /Panopto/Pages/Transcription/GenerateSRT.ashx?id=<deliveryId>&language=0
 //   Open at time:   /Panopto/Pages/Viewer.aspx?id=<deliveryId>&start=<seconds>

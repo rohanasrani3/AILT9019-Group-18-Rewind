@@ -60,7 +60,7 @@ Example questions: `master theorem` · `shortcut for divide-and-conquer recurren
 
 Rewind uses your existing Panopto session from inside your own tab. It never sees or stores your password, and it never downloads audio or video. **Reindex** updates a course; **Delete** removes its captions, vectors and metadata; **Export** saves it as a `.rewind.json` file (keep HKU exports private).
 
-> **Validation limitation:** the Panopto adapter is tested against simulated Panopto responses (`test/unit/panopto.test.js`), **not against HKU's live Panopto**: that needs lecturer approval and a login, which the team has not obtained. It uses the same (undocumented) endpoints as Panopto's own pages, so a Panopto update could break it. If that happens Rewind reports an error, and the demo keeps working.
+> **Validation:** the team has tested the Panopto adapter on **HKU's live Panopto**, and it works. It is also covered by automated tests against simulated Panopto responses (`test/unit/panopto.test.js`). It uses the same (undocumented) endpoints as Panopto's own pages, so a future Panopto update could break it. If that happens Rewind reports an error, and the demo keeps working.
 
 ## Optional: AI query help (off by default, your own key)
 
